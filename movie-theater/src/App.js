@@ -1,10 +1,14 @@
 import React from 'react';
 import './App.scss';
 import { Home } from './components/Home';
+import { NavBar } from './components/navbar/NavBar';
 
 function App() {
   return (
-    <Home />
+    <div>
+      <NavBar />
+      <Home />
+    </div>
   );
 }
 
