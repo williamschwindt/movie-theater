@@ -1,7 +1,9 @@
 import { GET_TRENDING_MOVIES_START, GET_TRENDING_MOVIES_SUCCESS, GET_TRENDING_MOVIES_FAILURE } from '../../actions/types';
 
 const initialState = {
-    trendingMovies: [],
+    trendingMovies: [{
+        movie: "initial"
+    }],
     isFetching: false,
     error: ''
 }

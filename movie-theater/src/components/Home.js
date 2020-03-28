@@ -1,5 +1,5 @@
 import React from 'react';
-import TrendingMovies from './movieComponents/TrendingMovies';
+import TrendingMovies from './movieComponents/TrendingMovies/TrendingMovies';
 
 export const Home = () => {
     return(
