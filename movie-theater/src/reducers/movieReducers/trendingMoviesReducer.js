@@ -17,7 +17,7 @@ const initialState = {
     error: ''
 }
 
-export const getTrendingMovies = (state = initialState, action) => {
+export const trendingMoviesReducer = (state = initialState, action) => {
     switch(action.type) {
         case GET_TRENDING_MOVIES_START :
             return {

@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 
-import { getMovieConfig } from './movieReducers/getMovieConfig';
-import { getTrendingMovies } from './movieReducers/getTrendingMovies';
-import { getPopularMovies } from './movieReducers/getPopularMovies';
+import { movieConfigReducer } from './movieReducers/movieConfigReducer';
+import { trendingMoviesReducer } from './movieReducers/trendingMoviesReducer';
+import { popularMoviesReducer } from './movieReducers/popularMoviesReducer';
+import { movieGenresRuducer } from './movieReducers/movieGenresRuducer';
 
 export const rootReducer = combineReducers({
-    getMovieConfig,
-    getTrendingMovies,
-    getPopularMovies
+    movieConfigReducer,
+    trendingMoviesReducer,
+    popularMoviesReducer,
+    movieGenresRuducer
 });

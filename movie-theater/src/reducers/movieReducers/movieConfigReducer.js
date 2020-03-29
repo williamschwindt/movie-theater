@@ -4,7 +4,7 @@ const initialState = {
     config: ""
 }
 
-export const getMovieConfig = (state = initialState, action) => {
+export const movieConfigReducer = (state = initialState, action) => {
     switch(action.type) {
         case GET_MOVIE_CONFIG :
             return {

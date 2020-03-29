@@ -8,11 +8,10 @@ export const getTrendingMovies = () => dispatch => {
     axios
     .get("https://api.themoviedb.org/3/trending/movie/week?api_key=f45d181e4568e696ff8f68048d522dc8")
     .then(res => {
-        console.log(res);
+        console.log(res.data.results);
         dispatch({ type: GET_TRENDING_MOVIES_SUCCESS, payload: res.data.results })
     })
     .catch(err => {
-        console.log(err);
         dispatch({ type: GET_TRENDING_MOVIES_FAILURE, payload: err })
     })
 };
