@@ -1,20 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { getTrendingMovies } from '../../../actions/movieActions/getTrendingMovies';
 import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
 
 const TrendingMovies = ({ getTrendingMovies, getMovieConfig, trendingMovies, isFetching, error, config }) => {
-
-    //setting first movie to have class of 'current'
-    useEffect(() => {
-        const slides = document.querySelectorAll('.trending-movie');
-        slides[0].classList.add('current');
-    }, [trendingMovies])
+    const [slides, setSlides] = useState([]);
+    //auto slide
+    const auto = true;
+    const intervalTime = 7000;
+    let slideInterval;
 
     useEffect(() => {
         getTrendingMovies();
         getMovieConfig();
     },[getTrendingMovies, getMovieConfig])
+
+    useEffect(() => {
+        const trending = trendingMovies.slice(0,3);
+        setSlides(trending);
+    }, [])
+
+    useEffect(() => {
+    const slides = document.querySelectorAll('.trending-movie');
+    slides[0].classList.add('current');
+    }, [trendingMovies])
 
     const nextSlide = () => {
         const slides = document.querySelectorAll('.trending-movie');
@@ -41,6 +50,10 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, trendingMovies, isF
         }
     }
 
+    if(auto) {
+        slideInterval = setInterval(nextSlide, intervalTime);
+    }
+
     if(isFetching === true) {
         return(
             <h1>waiting</h1>
@@ -61,7 +74,7 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, trendingMovies, isF
             <div className="trending-movies">
                 {movies.map(movie => {
                     return(
-                        <div className="trending-movie" key={movie.id} style={{backgroundImage: `url(${movieConfig}w1280${movie.backdrop_path})`}}>
+                        <div className="trending-movie" key={movie.id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movie.backdrop_path})`}}>
                             <div className="content">
                                 <h1>{movie.title}</h1>
                                 <p>{movie.overview}</p>
