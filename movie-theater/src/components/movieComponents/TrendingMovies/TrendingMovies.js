@@ -15,7 +15,7 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
         getTrendingMovies();
         getMovieConfig();
         getMovieGenres();
-    },[getTrendingMovies, getMovieConfig, getMovieGenres])
+    },[getMovieConfig, getMovieGenres, getTrendingMovies])
 
     //auto slide
     const auto = true;
@@ -24,7 +24,7 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
     const nextSlide = () => {
         const slides = document.querySelectorAll('.trending-movie');
 
-        const current = document.querySelector('.current');
+        const current = document.querySelector('.trending-movie.current');
         current.classList.remove('current');
         if(current.nextElementSibling) {
             console.log(current.nextElementSibling);
@@ -47,7 +47,7 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
     }
 
     if(auto) {
-        setInterval(prevSlide, intervalTime);
+        setInterval(nextSlide, intervalTime);
     }
 
     if(isFetchingTrendingMovies === true || isFetchingMovieGenres === true) {
