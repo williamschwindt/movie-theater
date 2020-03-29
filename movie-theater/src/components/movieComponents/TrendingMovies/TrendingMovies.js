@@ -4,26 +4,15 @@ import { getTrendingMovies } from '../../../actions/movieActions/getTrendingMovi
 import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
 
 const TrendingMovies = ({ getTrendingMovies, getMovieConfig, trendingMovies, isFetching, error, config }) => {
-    const [slides, setSlides] = useState([]);
+
     //auto slide
     const auto = true;
     const intervalTime = 7000;
-    let slideInterval;
 
     useEffect(() => {
         getTrendingMovies();
         getMovieConfig();
     },[getTrendingMovies, getMovieConfig])
-
-    useEffect(() => {
-        const trending = trendingMovies.slice(0,3);
-        setSlides(trending);
-    }, [])
-
-    useEffect(() => {
-    const slides = document.querySelectorAll('.trending-movie');
-    slides[0].classList.add('current');
-    }, [trendingMovies])
 
     const nextSlide = () => {
         const slides = document.querySelectorAll('.trending-movie');
@@ -51,7 +40,7 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, trendingMovies, isF
     }
 
     if(auto) {
-        slideInterval = setInterval(nextSlide, intervalTime);
+        setInterval(prevSlide, intervalTime);
     }
 
     if(isFetching === true) {
@@ -67,21 +56,35 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, trendingMovies, isF
     }
 
     const movieConfig = config;
-    const movies = trendingMovies.slice(0,3);
+    const movies = trendingMovies.slice(0,4);
 
     return(
         <div>
             <div className="trending-movies">
-                {movies.map(movie => {
-                    return(
-                        <div className="trending-movie" key={movie.id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movie.backdrop_path})`}}>
-                            <div className="content">
-                                <h1>{movie.title}</h1>
-                                <p>{movie.overview}</p>
-                            </div>
-                        </div>
-                    )
-                })}
+                <div className="trending-movie current" key={movies[0].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[0].backdrop_path})`}}>
+                    <div className="content">
+                        <h1>{movies[0].title}</h1>
+                        <p>{movies[0].overview}</p>
+                    </div>
+                </div>
+                <div className="trending-movie" key={movies[1].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[1].backdrop_path})`}}>
+                    <div className="content">
+                        <h1>{movies[1].title}</h1>
+                        <p>{movies[1].overview}</p>
+                    </div>
+                </div>
+                <div className="trending-movie" key={movies[2].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[2].backdrop_path})`}}>
+                    <div className="content">
+                        <h1>{movies[2].title}</h1>
+                        <p>{movies[2].overview}</p>
+                    </div>
+                </div>
+                <div className="trending-movie" key={movies[3].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[3].backdrop_path})`}}>
+                    <div className="content">
+                        <h1>{movies[3].title}</h1>
+                        <p>{movies[3].overview}</p>
+                    </div>
+                </div>
             </div>
             <div className="buttons">
                 <button id="prev" onClick={prevSlide}><ion-icon name="ios-arrow-back"/></button>

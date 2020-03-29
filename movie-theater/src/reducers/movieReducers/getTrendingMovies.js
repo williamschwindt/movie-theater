@@ -2,7 +2,16 @@ import { GET_TRENDING_MOVIES_START, GET_TRENDING_MOVIES_SUCCESS, GET_TRENDING_MO
 
 const initialState = {
     trendingMovies: [{
-        movie: "initial"
+        movie: "one"
+    },
+    {
+        movie: "two"
+    },
+    {
+        movie: "three"
+    },
+    {
+        movie: "four"
     }],
     isFetching: false,
     error: ''
