@@ -47,9 +47,14 @@ html {
   font-size: 62.5%;
   color: #fff;
   background-color: #333;
+  overflow: hidden;
 
-    .App {
-      text-align: center;
-    }
+	body {
+		overflow: hidden;
+
+			.App {
+				text-align: center;
+			}
+	}
 }
 
