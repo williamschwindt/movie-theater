@@ -4,12 +4,11 @@ import { getTrendingMovies } from '../../../actions/movieActions/getTrendingMovi
 import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
 import { getMovieGenres } from '../../../actions/movieActions/getMovieGenres';
 
-const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres, 
+const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
     trendingMovies, isFetchingTrendingMovies, errorTrendingMovies, 
     config,
-    movieGenres,
-    isFetchingMovieGenres,
-    errorMovieGenres }) => {
+    movieGenres, isFetchingMovieGenres, errorMovieGenres
+    }) => {
 
     useEffect(() => {
         getTrendingMovies();
@@ -27,7 +26,6 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
         const current = document.querySelector('.trending-movie.current');
         current.classList.remove('current');
         if(current.nextElementSibling) {
-            console.log(current.nextElementSibling);
             current.nextElementSibling.classList.add('current');
         } else {
             slides[0].classList.add('current');
