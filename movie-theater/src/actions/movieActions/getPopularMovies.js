@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { GET_POPULAR_MOVIES_START, GET_POPULAR_MOVIES_SUCCESS, GET_POPULAR_MOVIES_FAILURE } from '../types';
 
-export const getUpcoming = () => dispatch => {
+export const getPopularMovies = () => dispatch => {
     dispatch({ type: GET_POPULAR_MOVIES_START });
 
     axios
