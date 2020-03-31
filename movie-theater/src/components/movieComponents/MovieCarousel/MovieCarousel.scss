@@ -36,35 +36,34 @@ div {
     
             }
     }
-
         
-        #back, #next {
-            border: 2px solid #fff;
-            background-color: transparent;
-            color: #fff;
-            cursor: pointer;
-            padding: 13px 15px;
-            border-radius: 50%;
-            outline: none;
+    #back, #next {
+        border: 2px solid #fff;
+        background-color: transparent;
+        color: #fff;
+        cursor: pointer;
+        padding: 13px 15px;
+        border-radius: 50%;
+        outline: none;
 
-                &:hover {
-                    background-color: #fff;
-                    color: #333;
-                }
-        }
+            &:hover {
+                background-color: #fff;
+                color: #333;
+            }
+    }
 
-        #back {
-            z-index: 1;
-            position: absolute;
-            left: 5%;
-            top: 45%;
-        }
+    #back {
+        z-index: 1;
+        position: absolute;
+        left: 5%;
+        top: 45%;
+    }
 
-        #next {
-            position: absolute;
-            right: 5%;
-            top: 45%;
-        }
+    #next {
+        position: absolute;
+        right: 5%;
+        top: 45%;
+    }
 
 }
 
