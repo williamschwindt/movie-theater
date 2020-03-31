@@ -5,7 +5,10 @@ import { getNowPlaying } from '../../../actions/movieActions/getNowPlaying';
 import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
 import { getUpcoming } from '../../../actions/movieActions/getUpcoming';
 
-const HomeMovies = ({ getNowPlaying, getMovieConfig, getUpcoming, nowPlaying, isFetchingNowPlaying, errorNowPlaying, config }) => {
+const HomeMovies = ({ getNowPlaying, getMovieConfig, getUpcoming, 
+    nowPlaying, isFetchingNowPlaying, errorNowPlaying, 
+    upcoming, isFetchingUpcoming, errorUpcoming,
+    config }) => {
 
     useEffect(() => {
         getNowPlaying();
@@ -17,7 +20,9 @@ const HomeMovies = ({ getNowPlaying, getMovieConfig, getUpcoming, nowPlaying, is
         return(
             <div className="home-movies">
                 <h1>Now Playing</h1>
-                <MovieCarousel config={config} movies={nowPlaying} />
+                <MovieCarousel config={config} movies={nowPlaying} class={"now-playing-movies"}/>
+                <h1>Upcoming</h1>
+                <MovieCarousel config={config} movies={upcoming} class={"upcoming-movies"}/>
             </div>
         )
     }

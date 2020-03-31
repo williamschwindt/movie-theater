@@ -10,7 +10,7 @@ export const MovieCarousel = (props) => {
         } else {
             transform = 0;
         }
-        const row = document.querySelectorAll('.movie');
+        const row = document.querySelectorAll(`.${props.class}`);
         for(let i = 0; i < row.length; i++) {
             row[i].style.transform = `translateX(${transform}%)`;
         }
@@ -22,7 +22,7 @@ export const MovieCarousel = (props) => {
         } else {
             transform += 116.4;
         }
-        const row = document.querySelectorAll('.movie');
+        const row = document.querySelectorAll(`.${props.class}`);
         for(let i = 0; i < row.length; i++) {
             row[i].style.transform = `translateX(${transform}%)`;
         }
@@ -33,7 +33,7 @@ export const MovieCarousel = (props) => {
             <div className="movies-row">
                 {props.movies.map(movie => {
                     return (
-                        <div key={movie.id} className="movie">
+                        <div key={movie.id} className={props.class}>
                             <img src={`${props.config}w1280${movie.poster_path}`} alt="movie"/>
                         </div>
                     )
