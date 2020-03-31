@@ -13,7 +13,8 @@ const HomeMovies = ({ getNowPlaying, getMovieConfig, nowPlaying, isFetchingNowPl
 
     if(isFetchingNowPlaying === 'fetched') {
         return(
-            <div>
+            <div className="home-movies">
+                <h1>Now Playing</h1>
                 <MovieCarousel config={config} movies={nowPlaying} />
             </div>
         )
