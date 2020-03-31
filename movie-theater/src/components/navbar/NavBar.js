@@ -4,7 +4,7 @@ export const NavBar = () => {
     return (
         <nav className="nav">
             <div className="logo">
-                <h1>The film house</h1>
+                <h1>THE FILM HOUSE</h1>
                 <ion-icon className="film-icon" name="ios-film"/>
             </div>
             <div>

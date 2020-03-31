@@ -35,6 +35,7 @@ export const MovieCarousel = (props) => {
                     return (
                         <div key={movie.id} className={props.class}>
                             <img src={`${props.config}w1280${movie.poster_path}`} alt="movie"/>
+                            <h2>{movie.title}</h2>
                         </div>
                     )
                 })}

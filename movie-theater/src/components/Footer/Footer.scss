@@ -1,0 +1,58 @@
+.footer {
+    background-color: #222;
+    display: flex;
+    padding: 40px 10%;
+    margin-top: 40px;
+
+    .footer-info {
+
+            .footer-nav {
+                display: flex;
+                flex-direction: column;
+                align-content: center;
+                margin-bottom: 30px;
+
+                    h1 {
+                        font-size: 3rem;
+                        margin-bottom: 10px;
+                        text-align: center;
+                    }
+
+                    .footer-links {
+                        text-align: center;
+
+                            a {
+                                transition: .3s;
+                                font-size: 2rem;
+                                text-decoration: none;
+                                color: #fff;
+                                margin: 0 5px;
+
+                                    &:hover {
+                                        transition: .3s;
+                                        color: rgb(48, 62, 255);
+                                    }
+                            }
+                    }
+            }
+
+            .copyright {
+
+                    h2 {
+                        font-size: 1.8rem;
+                        margin-bottom: 5px;
+                    }
+
+                    p {
+                        font-size: 1.8rem;
+                    }
+            }
+    }
+
+    .moviedb-logo {
+        margin-left: auto;
+            img {
+                width: 200px;
+            }
+    }
+}

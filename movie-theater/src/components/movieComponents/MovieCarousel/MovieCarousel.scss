@@ -7,6 +7,7 @@ div {
         height: auto;
         overflow-x: hidden;
         margin: 30px auto;
+        border-bottom: 1px solid rgb(48, 62, 255);
     
             .upcoming-movies, .now-playing-movies, .popular-movies {
                 cursor: pointer;
@@ -16,14 +17,10 @@ div {
                 flex-shrink: 0;
                 margin: 2% 1%;
                 border-radius: 10px;
-                background-color: #000;
-
-                    &:hover {
-                        transition: .3s;
-                        box-shadow: 0 0 5px;
-                    }
+                
 
                     img {
+                        background-color: #000;
                         transition: .3s;
                         width: 100%;
                         opacity: .8;
@@ -32,7 +29,13 @@ div {
                             &:hover {
                                 transition: .3s;
                                 opacity: 1;
+                                box-shadow: 0 0 5px;
                             }
+                    }
+                    h2 {
+                        font-size: 1.8rem;
+                        text-align: center;
+                        margin-top: 5px;
                     }
             }
     }

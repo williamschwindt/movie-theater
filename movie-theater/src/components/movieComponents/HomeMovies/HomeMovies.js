@@ -19,7 +19,7 @@ const HomeMovies = ({ getNowPlaying, getMovieConfig, getUpcoming, getPopularMovi
         getPopularMovies();
     }, [getNowPlaying, getMovieConfig, getUpcoming, getPopularMovies]);
 
-    if(isFetchingNowPlaying === 'fetched') {
+    if(isFetchingNowPlaying && isFetchingUpcoming && isFetchingPopularMovies === 'fetched') {
         return(
             <div className="home-movies">
                 <h1>Now Playing</h1>
@@ -29,6 +29,12 @@ const HomeMovies = ({ getNowPlaying, getMovieConfig, getUpcoming, getPopularMovi
                 <h1>Upcoming</h1>
                 <MovieCarousel config={config} movies={upcoming} class={"upcoming-movies"}/>
             </div>
+        )
+    }
+
+    if(errorNowPlaying || errorUpcoming || errorPopularMovies) {
+        return(
+            <h1>There was a problem loading this page</h1>
         )
     }
 
