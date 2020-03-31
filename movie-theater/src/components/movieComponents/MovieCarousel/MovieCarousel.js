@@ -17,7 +17,7 @@ export const MovieCarousel = (props) => {
     }
 
     const prev = () => {
-        if(transform === 0) {
+        if(transform > -.01 && transform < .01) {
             transform = -1513.2;
         } else {
             transform += 116.4;
