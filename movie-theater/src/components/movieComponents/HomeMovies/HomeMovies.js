@@ -4,17 +4,20 @@ import { MovieCarousel } from '../MovieCarousel/MovieCarousel';
 import { getNowPlaying } from '../../../actions/movieActions/getNowPlaying';
 import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
 import { getUpcoming } from '../../../actions/movieActions/getUpcoming';
+import { getPopularMovies } from '../../../actions/movieActions/getPopularMovies';
 
-const HomeMovies = ({ getNowPlaying, getMovieConfig, getUpcoming, 
+const HomeMovies = ({ getNowPlaying, getMovieConfig, getUpcoming, getPopularMovies,
     nowPlaying, isFetchingNowPlaying, errorNowPlaying, 
     upcoming, isFetchingUpcoming, errorUpcoming,
+    popularMovies, isFetchingPopularMovies, errorPopularMovies,
     config }) => {
 
     useEffect(() => {
         getNowPlaying();
         getMovieConfig();
         getUpcoming();
-    }, [getNowPlaying, getMovieConfig, getUpcoming]);
+        getPopularMovies();
+    }, [getNowPlaying, getMovieConfig, getUpcoming, getPopularMovies]);
 
     if(isFetchingNowPlaying === 'fetched') {
         return(
@@ -42,8 +45,12 @@ const mapStateToProps = (state) => {
         isFetchingUpcoming: state.upcomingReducer.isFetching,
         errorUpcoming: state.upcomingReducer.error,
 
+        popularMovies: state.popularMoviesReducer.popularMovies,
+        isFetchingPopularMovies: state.popularMoviesReducer.isFetching,
+        errorPopularMovies: state.popularMoviesReducer.error,
+
         config: state.movieConfigReducer.config
     }
 }
 
-export default connect(mapStateToProps, {getNowPlaying, getUpcoming, getMovieConfig})(HomeMovies);
+export default connect(mapStateToProps, {getNowPlaying, getUpcoming, getPopularMovies, getMovieConfig})(HomeMovies);
