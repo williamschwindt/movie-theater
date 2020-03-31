@@ -40,8 +40,8 @@ export const MovieCarousel = (props) => {
                 })}
             </div>
             
-            <button id="back" onClick={prev}><ion-icon name="ios-arrow-back"/></button>
-            <button id="next" onClick={next}><ion-icon name="ios-arrow-forward"/></button>
+            <button className="back c" onClick={prev}><ion-icon name="ios-arrow-back"/></button>
+            <button className="next c" onClick={next}><ion-icon name="ios-arrow-forward"/></button>
         
         </div>
     )

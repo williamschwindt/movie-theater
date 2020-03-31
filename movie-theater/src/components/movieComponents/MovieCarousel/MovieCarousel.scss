@@ -9,6 +9,7 @@ div {
         margin: 30px auto;
     
             .movie {
+                cursor: pointer;
                 transition: .5s;
                 width: 12.3%;
                 height: 100%;
@@ -16,13 +17,12 @@ div {
                 margin: 2% 1%;
                 border-radius: 10px;
                 background-color: #000;
-    
+
                     &:hover {
-                        transform: scale(1.1);
-                        cursor: pointer;
+                        transition: .3s;
+                        box-shadow: 0 0 5px;
                     }
-    
-    
+
                     img {
                         transition: .3s;
                         width: 100%;
@@ -33,11 +33,10 @@ div {
                                 opacity: 1;
                             }
                     }
-    
             }
     }
         
-    #back, #next {
+    .back, .next {
         border: 2px solid #fff;
         background-color: transparent;
         color: #fff;
@@ -52,17 +51,28 @@ div {
             }
     }
 
-    #back {
+    .back {
         z-index: 1;
         position: absolute;
         left: 5%;
         top: 45%;
     }
 
-    #next {
+    .next {
         position: absolute;
         right: 5%;
         top: 45%;
+    }
+
+    .back.c, .next.c {
+        border: none;
+        font-size: 4rem;
+
+            &:hover {
+                color: #fff;
+                background-color: rgb(21, 22, 63);
+                transform: scale(1.05);
+            }
     }
 
 }

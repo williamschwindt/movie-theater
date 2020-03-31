@@ -99,8 +99,8 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
                         </div>
                     </div>
                 </div>
-                <button id="back" onClick={prevSlide}><ion-icon name="ios-arrow-back"/></button>
-                <button id="next" onClick={nextSlide}><ion-icon name="ios-arrow-forward"/></button>
+                <button className="back" onClick={prevSlide}><ion-icon name="ios-arrow-back"/></button>
+                <button className="next" onClick={nextSlide}><ion-icon name="ios-arrow-forward"/></button>
             </div>
         )
     }
