@@ -5,11 +5,13 @@ import { trendingMoviesReducer } from './movieReducers/trendingMoviesReducer';
 import { popularMoviesReducer } from './movieReducers/popularMoviesReducer';
 import { movieGenresRuducer } from './movieReducers/movieGenresRuducer';
 import { nowPlayingReducer } from './movieReducers/nowPlayingReducer';
+import { upcomingReducer } from './movieReducers/upcomingReducer';
 
 export const rootReducer = combineReducers({
     movieConfigReducer,
     trendingMoviesReducer,
     popularMoviesReducer,
     movieGenresRuducer,
-    nowPlayingReducer
+    nowPlayingReducer,
+    upcomingReducer
 });

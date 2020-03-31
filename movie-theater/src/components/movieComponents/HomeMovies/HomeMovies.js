@@ -3,13 +3,15 @@ import { connect } from 'react-redux';
 import { MovieCarousel } from '../MovieCarousel/MovieCarousel';
 import { getNowPlaying } from '../../../actions/movieActions/getNowPlaying';
 import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
+import { getUpcoming } from '../../../actions/movieActions/getUpcoming';
 
-const HomeMovies = ({ getNowPlaying, getMovieConfig, nowPlaying, isFetchingNowPlaying, errorNowPlaying, config }) => {
+const HomeMovies = ({ getNowPlaying, getMovieConfig, getUpcoming, nowPlaying, isFetchingNowPlaying, errorNowPlaying, config }) => {
 
     useEffect(() => {
         getNowPlaying();
         getMovieConfig();
-    }, [getNowPlaying, getMovieConfig]);
+        getUpcoming();
+    }, [getNowPlaying, getMovieConfig, getUpcoming]);
 
     if(isFetchingNowPlaying === 'fetched') {
         return(
@@ -31,8 +33,12 @@ const mapStateToProps = (state) => {
         isFetchingNowPlaying: state.nowPlayingReducer.isFetching,
         errorNowPlaying: state.nowPlayingReducer.error,
 
+        upcoming: state.upcomingReducer.upcoming,
+        isFetchingUpcoming: state.upcomingReducer.isFetching,
+        errorUpcoming: state.upcomingReducer.error,
+
         config: state.movieConfigReducer.config
     }
 }
 
-export default connect(mapStateToProps, {getNowPlaying, getMovieConfig})(HomeMovies);
+export default connect(mapStateToProps, {getNowPlaying, getUpcoming, getMovieConfig})(HomeMovies);
