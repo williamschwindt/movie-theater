@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getTrendingMovies } from '../../../actions/movieActions/getTrendingMovies';
 import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
 import { getMovieGenres } from '../../../actions/movieActions/getMovieGenres';
@@ -21,14 +22,16 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
     const intervalTime = 7000;
 
     const nextSlide = () => {
-        const slides = document.querySelectorAll('.trending-movie');
+        if(document.querySelector('.trending-movies')) {
+            const slides = document.querySelectorAll('.trending-movie');
+            const current = document.querySelector('.trending-movie.current');
 
-        const current = document.querySelector('.trending-movie.current');
-        current.classList.remove('current');
-        if(current.nextElementSibling) {
-            current.nextElementSibling.classList.add('current');
-        } else {
-            slides[0].classList.add('current');
+            current.classList.remove('current');
+            if(current.nextElementSibling) {
+                current.nextElementSibling.classList.add('current');
+            } else {
+                slides[0].classList.add('current');
+            }
         }
     }
 
@@ -76,7 +79,7 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
                 <div className="trending-movies">
                     <div className="trending-movie current" key={movies[0].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[0].backdrop_path})`}}>
                         <div className="content">
-                            <h1>{movies[0].title}</h1>
+                            <Link to={`/movie/${movies[0].id}`}>{movies[0].title}</Link>
                             <p>{genres[0].name}</p>
                         </div>
                     </div>

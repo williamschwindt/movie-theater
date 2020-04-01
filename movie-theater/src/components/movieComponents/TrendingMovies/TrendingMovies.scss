@@ -35,6 +35,7 @@ div {
                     }
             }
             .trending-movie.current {
+                z-index: 1;
                 opacity: 1;
     
                     .content {
