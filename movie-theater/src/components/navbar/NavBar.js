@@ -4,13 +4,13 @@ export const NavBar = () => {
     return (
         <nav className="nav">
             <div className="logo">
-                <h1>THE FILM HOUSE</h1>
+                <h1>The Film House</h1>
                 <ion-icon className="film-icon" name="ios-film"/>
             </div>
             <div>
-                <a href="">home</a>
-                <a href="">discover</a>
-                <a href="">login</a>
+                <a href="/">Home</a>
+                <a href="/">Discover</a>
+                <a href="/">Login</a>
             </div>
         </nav>
     )

@@ -1,7 +1,13 @@
 import React from 'react';
 
 export const MovieCarousel = (props) => {
-    console.log(props);
+
+    const slide = (amount) => {
+        const row = document.querySelectorAll(`.${props.class}`);
+        for(let i = 0; i < row.length; i++) {
+            row[i].style.transform = `translateX(${amount}%)`;
+        }
+    }
 
     let transform = 0;
     const next = () => {
@@ -10,10 +16,7 @@ export const MovieCarousel = (props) => {
         } else {
             transform = 0;
         }
-        const row = document.querySelectorAll(`.${props.class}`);
-        for(let i = 0; i < row.length; i++) {
-            row[i].style.transform = `translateX(${transform}%)`;
-        }
+        slide(transform);
     }
 
     const prev = () => {
@@ -22,10 +25,7 @@ export const MovieCarousel = (props) => {
         } else {
             transform += 116.4;
         }
-        const row = document.querySelectorAll(`.${props.class}`);
-        for(let i = 0; i < row.length; i++) {
-            row[i].style.transform = `translateX(${transform}%)`;
-        }
+        slide(transform);
     }
 
     return (

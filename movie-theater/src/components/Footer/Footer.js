@@ -5,11 +5,11 @@ export const Footer = () => {
         <div className="footer">
             <div className="footer-info">
                 <div className="footer-nav">
-                    <h1>THE FILM HOUSE</h1>
+                    <h1>The Film House</h1>
                     <div className="footer-links">
-                        <a href="">home</a>
-                        <a href="">discover</a>
-                        <a href="">login</a>
+                        <a href="/">home</a>
+                        <a href="/">discover</a>
+                        <a href="/">login</a>
                     </div>
                 </div>
                 <div className="copyright">
