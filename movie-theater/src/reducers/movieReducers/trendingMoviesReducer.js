@@ -1,18 +1,7 @@
 import { GET_TRENDING_MOVIES_START, GET_TRENDING_MOVIES_SUCCESS, GET_TRENDING_MOVIES_FAILURE } from '../../actions/types';
 
 const initialState = {
-    trendingMovies: [{
-        movie: "one"
-    },
-    {
-        movie: "two"
-    },
-    {
-        movie: "three"
-    },
-    {
-        movie: "four"
-    }],
+    trendingMovies: [],
     isFetching: false,
     error: ''
 }
@@ -28,7 +17,7 @@ export const trendingMoviesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 trendingMovies: action.payload,
-                isFetching: false
+                isFetching: 'fetched'
             }
         case GET_TRENDING_MOVIES_FAILURE :
             return {

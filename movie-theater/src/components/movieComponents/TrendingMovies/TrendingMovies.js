@@ -18,11 +18,16 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
     },[getMovieConfig, getMovieGenres, getTrendingMovies])
 
     //auto slide
-    const auto = true;
-    const intervalTime = 7000;
+    let auto = false;
+    let intervalTime;
+
+    if(isFetchingTrendingMovies === 'fetched' && isFetchingMovieGenres === 'fetched' && config) {
+        auto = true;
+        intervalTime = 7000;
+    }
 
     const nextSlide = () => {
-        if(document.querySelector('.trending-movies')) {
+        console.log("next");
             const slides = document.querySelectorAll('.trending-movie');
             const current = document.querySelector('.trending-movie.current');
 
@@ -32,7 +37,7 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
             } else {
                 slides[0].classList.add('current');
             }
-        }
+        
     }
 
     const prevSlide = () => {
@@ -47,7 +52,8 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
         }
     }
 
-    if(auto) {
+    if(auto === true) {
+        console.log(auto);
         setInterval(nextSlide, intervalTime);
     }
 
@@ -63,7 +69,7 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
         )
     }
 
-    if (isFetchingTrendingMovies === false && isFetchingMovieGenres === 'fetched' && errorTrendingMovies === '' && errorMovieGenres === '') {
+    if (isFetchingTrendingMovies === 'fetched' && isFetchingMovieGenres === 'fetched' && errorTrendingMovies === '' && errorMovieGenres === '') {
         const movieConfig = config;
         const movies = trendingMovies.slice(0,4);
         let genres = [];
