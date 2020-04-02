@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const MovieCarousel = (props) => {
 
@@ -33,10 +34,10 @@ export const MovieCarousel = (props) => {
             <div className="movies-row">
                 {props.movies.map(movie => {
                     return (
-                        <div key={movie.id} className={props.class}>
+                        <Link onClick={props.stopSliding} to={`/movie/${movie.id}`}  key={movie.id} className={props.class}>
                             <img src={`${props.config}w1280${movie.poster_path}`} alt="movie"/>
                             <h2>{movie.title}</h2>
-                        </div>
+                        </Link>
                     )
                 })}
             </div>

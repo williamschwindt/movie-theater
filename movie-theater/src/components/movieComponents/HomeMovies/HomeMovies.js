@@ -10,7 +10,8 @@ const HomeMovies = ({ getNowPlaying, getMovieConfig, getUpcoming, getPopularMovi
     nowPlaying, isFetchingNowPlaying, errorNowPlaying, 
     upcoming, isFetchingUpcoming, errorUpcoming,
     popularMovies, isFetchingPopularMovies, errorPopularMovies,
-    config }) => {
+    config,
+    stopSliding }) => {
 
     useEffect(() => {
         getNowPlaying();
@@ -18,16 +19,16 @@ const HomeMovies = ({ getNowPlaying, getMovieConfig, getUpcoming, getPopularMovi
         getUpcoming();
         getPopularMovies();
     }, [getNowPlaying, getMovieConfig, getUpcoming, getPopularMovies]);
-
+ 
     if(isFetchingNowPlaying && isFetchingUpcoming && isFetchingPopularMovies === 'fetched') {
         return(
             <div className="home-movies">
                 <h1>Now Playing</h1>
-                <MovieCarousel config={config} movies={nowPlaying} class={"now-playing-movies"}/>
+                <MovieCarousel stopSliding={stopSliding} config={config} movies={nowPlaying} class={"now-playing-movies"}/>
                 <h1>Popular</h1>
-                <MovieCarousel config={config} movies={popularMovies} class={"popular-movies"}/>
+                <MovieCarousel stopSliding={stopSliding} config={config} movies={popularMovies} class={"popular-movies"}/>
                 <h1>Upcoming</h1>
-                <MovieCarousel config={config} movies={upcoming} class={"upcoming-movies"}/>
+                <MovieCarousel stopSliding={stopSliding} config={config} movies={upcoming} class={"upcoming-movies"}/>
             </div>
         )
     }

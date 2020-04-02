@@ -10,6 +10,7 @@ div {
         border-bottom: 1px solid rgb(48, 62, 255);
     
             .upcoming-movies, .now-playing-movies, .popular-movies {
+                text-decoration: none;
                 cursor: pointer;
                 transition: .5s;
                 width: 12.3%;
@@ -33,6 +34,7 @@ div {
                             }
                     }
                     h2 {
+                        color: #fff;
                         font-size: 1.8rem;
                         font-weight: 300;
                         text-align: center;

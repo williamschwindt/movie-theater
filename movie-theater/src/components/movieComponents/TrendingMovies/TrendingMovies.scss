@@ -1,4 +1,31 @@
 div {
+    .t-back, .t-next {
+        position: absolute;
+        z-index: 3;
+        border: 2px solid #fff;
+        background-color: transparent;
+        color: #fff;
+        cursor: pointer;
+        padding: 13px 15px;
+        border-radius: 50%;
+        outline: none;
+
+            &:hover {
+                background-color: #fff;
+                color: #333;
+            }
+    }
+
+    .t-back {
+        top: 13%;
+        left: 5%;
+    }
+
+    .t-next {
+        top: 13%;
+        right: 5%;
+    }
+
     .trending-movies {
         position: relative;
         overflow: hidden;

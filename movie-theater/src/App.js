@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom';
 import { Home } from './components/Home';
 import { NavBar } from './components/navbar/NavBar';
 import { Footer } from './components/Footer/Footer';
-import { Movie } from './components/movieComponents/Movie/Movie';
+import Movie from './components/movieComponents/Movie/Movie';
 
 function App() {
   return (
