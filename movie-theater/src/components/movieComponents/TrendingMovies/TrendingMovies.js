@@ -20,24 +20,28 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
     //auto slide
     let auto = false;
     let intervalTime;
+    let intervalFunc;
 
     if(isFetchingTrendingMovies === 'fetched' && isFetchingMovieGenres === 'fetched' && config) {
         auto = true;
         intervalTime = 7000;
     }
 
-    const nextSlide = () => {
-        console.log("next");
-            const slides = document.querySelectorAll('.trending-movie');
-            const current = document.querySelector('.trending-movie.current');
+    const stopSliding = () => {
+        auto = false;
+        clearInterval(intervalFunc);
+    }
 
-            current.classList.remove('current');
-            if(current.nextElementSibling) {
-                current.nextElementSibling.classList.add('current');
-            } else {
-                slides[0].classList.add('current');
-            }
-        
+    const nextSlide = () => {
+        const slides = document.querySelectorAll('.trending-movie');
+        const current = document.querySelector('.trending-movie.current');
+
+        current.classList.remove('current');
+        if(current.nextElementSibling) {
+            current.nextElementSibling.classList.add('current');
+        } else {
+            slides[0].classList.add('current');
+        }
     }
 
     const prevSlide = () => {
@@ -53,8 +57,7 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
     }
 
     if(auto === true) {
-        console.log(auto);
-        setInterval(nextSlide, intervalTime);
+        intervalFunc = setInterval(nextSlide, intervalTime);
     }
 
     if(isFetchingTrendingMovies === true || isFetchingMovieGenres === true) {
@@ -83,30 +86,30 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
         return(
             <div>
                 <div className="trending-movies">
-                    <div className="trending-movie current" key={movies[0].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[0].backdrop_path})`}}>
+                    <Link onClick={stopSliding} to={`/movie/${movies[0].id}`} className="trending-movie current" key={movies[0].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[0].backdrop_path})`}}>
                         <div className="content">
-                            <Link to={`/movie/${movies[0].id}`}>{movies[0].title}</Link>
+                            <h1>{movies[0].title}</h1>
                             <p>{genres[0].name}</p>
                         </div>
-                    </div>
-                    <div className="trending-movie" key={movies[1].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[1].backdrop_path})`}}>
+                    </Link>
+                    <Link onClick={stopSliding} to={`/movie/${movies[0].id}`} className="trending-movie" key={movies[1].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[1].backdrop_path})`}}>
                         <div className="content">
                             <h1>{movies[1].title}</h1>
                             <p>{genres[1].name}</p>
                         </div>
-                    </div>
-                    <div className="trending-movie" key={movies[2].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[2].backdrop_path})`}}>
+                    </Link>
+                    <Link onClick={stopSliding} to={`/movie/${movies[0].id}`} className="trending-movie" key={movies[2].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[2].backdrop_path})`}}>
                         <div className="content">
                             <h1>{movies[2].title}</h1>
                             <p>{genres[2].name}</p>
                         </div>
-                    </div>
-                    <div className="trending-movie" key={movies[3].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[3].backdrop_path})`}}>
+                    </Link>
+                    <Link onClick={stopSliding} to={`/movie/${movies[0].id}`} className="trending-movie" key={movies[3].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[3].backdrop_path})`}}>
                         <div className="content">
                             <h1>{movies[3].title}</h1>
                             <p>{genres[3].name}</p>
                         </div>
-                    </div>
+                    </Link>
                 </div>
                 <button className="back" onClick={prevSlide}><ion-icon name="ios-arrow-back"/></button>
                 <button className="next" onClick={nextSlide}><ion-icon name="ios-arrow-forward"/></button>
