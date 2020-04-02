@@ -101,13 +101,13 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
                             <p>{genres[1].name}</p>
                         </div>
                     </Link>
-                    <Link onClick={stopSliding} to={`/movie/${movies[1].id}`} className="trending-movie" key={movies[2].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[2].backdrop_path})`}}>
+                    <Link onClick={stopSliding} to={`/movie/${movies[2].id}`} className="trending-movie" key={movies[2].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[2].backdrop_path})`}}>
                         <div className="content">
                             <h1>{movies[2].title}</h1>
                             <p>{genres[2].name}</p>
                         </div>
                     </Link>
-                    <Link onClick={stopSliding} to={`/movie/${movies[1].id}`} className="trending-movie" key={movies[3].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[3].backdrop_path})`}}>
+                    <Link onClick={stopSliding} to={`/movie/${movies[3].id}`} className="trending-movie" key={movies[3].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[3].backdrop_path})`}}>
                         <div className="content">
                             <h1>{movies[3].title}</h1>
                             <p>{genres[3].name}</p>

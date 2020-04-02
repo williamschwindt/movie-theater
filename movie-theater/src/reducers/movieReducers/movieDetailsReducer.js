@@ -1,7 +1,7 @@
 import { GET_MOVIE_DETAILS_START, GET_MOVIE_DETAILS_SUCCESS, GET_MOVIE_DETAILS_FAILURE } from '../../actions/types';
 
 const initialState = {
-    details: {this: "test"},
+    details: {},
     isFetching: false,
     error: ''
 }
