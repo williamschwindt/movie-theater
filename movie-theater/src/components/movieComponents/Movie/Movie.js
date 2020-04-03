@@ -16,32 +16,33 @@ const Movie = (props) => {
     }, [getMovieDetails, id, getMovieConfig])
     console.log(details);
 
+    const viewSummary = () => {
+        document.querySelector('.summary-container').classList.toggle('view');
+    }
+
     if(props.isFetching === 'fetched' && props.error === '') {
         return(
             <div className="movie">
                 <a href="/" className="m-back"><ion-icon name="ios-arrow-back"/></a>
-                <div className="movie-background" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${config}w1280${details.backdrop_path})`}}></div>
-                    <div className="movie-details">  
-                        <div className="image-box">
-                            <img src={`${config}w1280${details.poster_path}`} alt="movie"/>
-                                <div className="box-details">
-                                    <h1>{details.title}</h1>
-                                    <p className="rating">{details.vote_average}</p>
-                                    <div className="genres">
-                                        {details.genres.map(genre => {
-                                            return (
-                                                <p key={genre.id}>{genre.name}</p>
-                                            )
-                                        })}
-                                    </div>
-                                    <p>{Math.round(details.runtime / 60).toFixed(1)} hours</p>
-                                    <div className="summary-container">
-                                        <h2>Summary</h2>
-                                        <p>{details.overview}</p>
-                                    </div>
-                                </div>
+                <div className="movie-background" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 9)), url(${config}w1280${details.backdrop_path})`}}></div> 
+                <div className="movie-details">
+                    <h1>{details.title}</h1>
+                    <div className="info-box">
+                        <p className="rating">{details.vote_average}</p>
+                        <div className="genres">
+                            {details.genres.map(genre => {
+                                return (
+                                    <p key={genre.id}>{genre.name}</p>
+                                )
+                            })}
                         </div>
-                    </div> 
+                        <p className="runtime">{details.runtime} minutes</p>
+                    </div>
+                    <button onClick={viewSummary} className="view-summary"><p>Summary</p></button>
+                </div>
+                <div className="summary-container">
+                    <p>{details.overview}</p>
+                </div>
             </div>
         )
     }
