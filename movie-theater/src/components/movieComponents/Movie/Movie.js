@@ -35,11 +35,11 @@ const Movie = (props) => {
                                         })}
                                     </div>
                                     <p>{Math.round(details.runtime / 60).toFixed(1)} hours</p>
+                                    <div className="summary-container">
+                                        <h2>Summary</h2>
+                                        <p>{details.overview}</p>
+                                    </div>
                                 </div>
-                        </div>
-                        <div className="summary-container">
-                            <h2>Summary</h2>
-                            <p>{details.overview}</p>
                         </div>
                     </div> 
             </div>
