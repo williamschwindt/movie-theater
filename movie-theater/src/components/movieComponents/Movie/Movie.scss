@@ -22,7 +22,7 @@
     .movie-details {
         width: 60%;
         position: absolute;
-        top: 70%;
+        top: 70vh;
         left: 5%;
     
         h1 {
@@ -65,7 +65,7 @@
             background: transparent;
             margin: auto 0;
             outline: none;
-            border: none;
+            border: none; 
             padding: 0;
 
             p {
@@ -91,7 +91,13 @@
 
     .summary-container.view {
         transition: .5s;
-        top: 70%;
+        top: 70vh;
+    }
+
+    h2 {
+        font-size: 4rem;
+        text-align: center;
+        margin-top: 80px;
     }
 }
 

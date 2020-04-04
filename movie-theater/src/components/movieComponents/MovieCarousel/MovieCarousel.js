@@ -5,7 +5,7 @@ export const MovieCarousel = (props) => {
 
     const slide = (amount) => {
         const row = document.querySelectorAll(`.${props.class}`);
-        for(let i = 0; i < row.length; i++) {
+        for(let i = 0; i < row.length; i++) { 
             row[i].style.transform = `translateX(${amount}%)`;
         }
     }

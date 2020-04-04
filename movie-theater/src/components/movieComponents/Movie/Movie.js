@@ -2,25 +2,32 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getMovieDetails } from '../../../actions/movieActions/getMovieDetails';
 import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
+import { getMovieCast } from '../../../actions/movieActions/getMovieCast';
+import { ActorCarousel } from '../ActorCarousel/ActorCarousel';
 
 const Movie = (props) => {
     const { id } = props.match.params;
     const { getMovieDetails } = props;
     const { getMovieConfig } = props;
+    const { getMovieCast } = props;
     const { config } = props;
     const { details } = props;
+    const { cast } = props;
+    console.log(cast);
 
     useEffect(() => {
         getMovieDetails(id);
         getMovieConfig();
-    }, [getMovieDetails, id, getMovieConfig])
-    console.log(details);
+        getMovieCast(id);
+    }, [getMovieDetails, id, getMovieConfig, getMovieCast])
 
     const viewSummary = () => {
         document.querySelector('.summary-container').classList.toggle('view');
     }
 
-    if(props.isFetching === 'fetched' && props.error === '') {
+    if(props.isFetchingMovieDetails === 'fetched' && props.isFetchingMovieCast === 'fetched' && config !== '' && props.errorMovieDetails === '') {
+        let movieCast = cast.splice(0, 5);
+
         return(
             <div className="movie">
                 <a href="/" className="m-back"><ion-icon name="ios-arrow-back"/></a>
@@ -43,6 +50,8 @@ const Movie = (props) => {
                 <div className="summary-container">
                     <p>{details.overview}</p>
                 </div>
+                <h2>Cast</h2>
+                <ActorCarousel config={config} movieCast={movieCast}/>
             </div>
         )
     }
@@ -55,11 +64,15 @@ const Movie = (props) => {
 const mapStateToProps = state => {
     return {
         details: state.movieDetailsRuducer.details,
-        isFetching: state.movieDetailsRuducer.isFetching,
-        error: state.movieDetailsRuducer.error,
+        isFetchingMovieDetails: state.movieDetailsRuducer.isFetching,
+        errorMovieDetails: state.movieDetailsRuducer.error,
+
+        cast : state.movieCastReducer.cast,
+        isFetchingMovieCast: state.movieCastReducer.isFetching,
+        errorMovieCast: state.movieCastReducer.error,
 
         config: state.movieConfigReducer.config
     }
 }
 
-export default connect(mapStateToProps, {getMovieDetails, getMovieConfig})(Movie);
+export default connect(mapStateToProps, {getMovieDetails, getMovieConfig, getMovieCast})(Movie);

@@ -1,12 +1,12 @@
 import { GET_MOVIE_CAST_START, GET_MOVIE_CAST_SUCCESS, GET_MOVIE_CAST_FAILURE } from '../../actions/types';
 
 const initialState = {
-    cast: {},
+    cast: [],
     isFetching: false,
     error: ''
 }
 
-export const movieDetailsRuducer = (state = initialState, action) => {
+export const movieCastReducer = (state = initialState, action) => {
     switch(action.type) {
         case GET_MOVIE_CAST_START :
             return {

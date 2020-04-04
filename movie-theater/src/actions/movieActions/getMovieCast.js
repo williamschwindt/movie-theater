@@ -8,8 +8,7 @@ export const getMovieCast = (id) => dispatch => {
     axios
     .get(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=f45d181e4568e696ff8f68048d522dc8`)
     .then(res => {
-        console.log(res);
-        dispatch({ type: GET_MOVIE_CAST_SUCCESS, payload: res.data });
+        dispatch({ type: GET_MOVIE_CAST_SUCCESS, payload: res.data.cast });
     })
     .catch(err => {
         dispatch({ type: GET_MOVIE_CAST_FAILURE, payload: err });
