@@ -91,24 +91,28 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
                 <div className="trending-movies">
                     <Link onClick={stopSliding} to={`/movie/${movies[0].id}`} className="trending-movie current" key={movies[0].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[0].backdrop_path})`}}>
                         <div className="content">
+                            <p id="trending-tag">Trending</p>
                             <h1>{movies[0].title}</h1>
                             <p>{genres[0].name}</p>
                         </div>
                     </Link>
                     <Link onClick={stopSliding} to={`/movie/${movies[1].id}`} className="trending-movie" key={movies[1].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[1].backdrop_path})`}}>
                         <div className="content">
+                            <p id="trending-tag">Trending</p>
                             <h1>{movies[1].title}</h1>
                             <p>{genres[1].name}</p>
                         </div>
                     </Link>
                     <Link onClick={stopSliding} to={`/movie/${movies[2].id}`} className="trending-movie" key={movies[2].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[2].backdrop_path})`}}>
                         <div className="content">
+                            <p id="trending-tag">Trending</p>
                             <h1>{movies[2].title}</h1>
                             <p>{genres[2].name}</p>
                         </div>
                     </Link>
                     <Link onClick={stopSliding} to={`/movie/${movies[3].id}`} className="trending-movie" key={movies[3].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[3].backdrop_path})`}}>
                         <div className="content">
+                            <p id="trending-tag">Trending</p>
                             <h1>{movies[3].title}</h1>
                             <p>{genres[3].name}</p>
                         </div>
