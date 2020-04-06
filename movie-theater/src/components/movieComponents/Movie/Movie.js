@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getMovieDetails } from '../../../actions/movieActions/getMovieDetails';
 import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
 import { getMovieCast } from '../../../actions/movieActions/getMovieCast';
+import { getMovieReview } from '../../../actions/movieActions/getMovieReview';
 import { ActorCarousel } from '../ActorCarousel/ActorCarousel';
 
 const Movie = (props) => {
@@ -10,22 +11,32 @@ const Movie = (props) => {
     const { getMovieDetails } = props;
     const { getMovieConfig } = props;
     const { getMovieCast } = props;
+    const { getMovieReview } = props;
     const { config } = props;
     const { details } = props;
     const { cast } = props;
-    console.log(cast);
+    const { reviews } = props;
+    console.log(reviews);
 
     useEffect(() => {
         getMovieDetails(id);
         getMovieConfig();
         getMovieCast(id);
-    }, [getMovieDetails, id, getMovieConfig, getMovieCast])
+        getMovieReview(id);
+    }, [getMovieDetails, id, getMovieConfig, getMovieCast ,getMovieReview])
 
     const viewSummary = () => {
         document.querySelector('.summary-container').classList.toggle('view');
     }
 
-    if(props.isFetchingMovieDetails === 'fetched' && props.isFetchingMovieCast === 'fetched' && config !== '' && props.errorMovieDetails === '') {
+    const shortendText = (text, maxLength) => {
+        if(text.length > maxLength) {
+            text = text.substr(0,maxLength) + '...';
+        }
+        return text;
+    }
+
+    if(props.isFetchingMovieDetails === 'fetched' && props.isFetchingMovieCast === 'fetched' && props.isFetchingMovieReviews === 'fetched' && config !== '' && props.errorMovieDetails === '') {
         let movieCast = cast.splice(0, 5);
 
         return(
@@ -52,6 +63,18 @@ const Movie = (props) => {
                 </div>
                 <h2>Cast</h2>
                 <ActorCarousel config={config} movieCast={movieCast}/>
+                <div className="reviews">
+                    <h2>Reviews</h2>
+                    {reviews.map(review => {
+                        return (
+                            <div key={review.id} className="review">
+                                <h3>{review.author}</h3>
+                                <p>{shortendText(review.content, 400)}</p>
+                                <a href={review.url}>See Full Review</a>
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
         )
     }
@@ -71,8 +94,12 @@ const mapStateToProps = state => {
         isFetchingMovieCast: state.movieCastReducer.isFetching,
         errorMovieCast: state.movieCastReducer.error,
 
+        reviews: state.movieReviewReducer.reviews,
+        isFetchingMovieReviews: state.movieReviewReducer.isFetching,
+        errorMovieReviews: state.movieReviewReducer.error,
+
         config: state.movieConfigReducer.config
     }
 }
 
-export default connect(mapStateToProps, {getMovieDetails, getMovieConfig, getMovieCast})(Movie);
+export default connect(mapStateToProps, {getMovieDetails, getMovieConfig, getMovieCast, getMovieReview})(Movie);
