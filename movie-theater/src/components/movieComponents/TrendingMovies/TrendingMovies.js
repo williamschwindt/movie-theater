@@ -61,19 +61,15 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
         intervalFunc = setInterval(nextSlide, intervalTime);
     }
 
-    if(isFetchingTrendingMovies === true || isFetchingMovieGenres === true) {
-        return(
-            <h1>waiting</h1>
-        )
-    }
-
     if(errorTrendingMovies || errorMovieGenres) {
         return (
-            <h1>There was an error loading this page</h1>
+            <div style={{height: '94vh'}}>
+                <h1>There was a problem loading this page</h1>
+            </div>
         )
     }
 
-    if (isFetchingTrendingMovies === 'fetched' && isFetchingMovieGenres === 'fetched' && errorTrendingMovies === '' && errorMovieGenres === '') {
+    if (isFetchingTrendingMovies === 'fetched' && isFetchingMovieGenres === 'fetched' && config) {
         const movieConfig = config;
         const movies = trendingMovies.slice(0,4);
         let genres = [];
@@ -125,7 +121,14 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
     }
 
     return (
-        <h1>waiting</h1>
+        <div style={{height: '94vh'}}>
+        <div className="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
     )
 }
 
@@ -139,7 +142,7 @@ const mapStateToProps = state => {
 
         movieGenres: state.movieGenresRuducer.genres,
         isFetchingMovieGenres: state.movieGenresRuducer.isFetching,
-        errorMovieGenres: state.movieGenresRuducer.error
+        errorMovieGenres: state.movieGenresRuducer.error       
     }
 }
 

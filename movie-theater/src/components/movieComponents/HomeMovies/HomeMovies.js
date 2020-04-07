@@ -20,7 +20,7 @@ const HomeMovies = ({ getNowPlaying, getMovieConfig, getUpcoming, getPopularMovi
         getPopularMovies();
     }, [getNowPlaying, getMovieConfig, getUpcoming, getPopularMovies]);
  
-    if(isFetchingNowPlaying && isFetchingUpcoming && isFetchingPopularMovies === 'fetched') {
+    if(isFetchingNowPlaying && isFetchingUpcoming && isFetchingPopularMovies === 'fetched' && config) {
         return(
             <div className="home-movies">
                 <h1>Now Playing</h1>
@@ -40,7 +40,12 @@ const HomeMovies = ({ getNowPlaying, getMovieConfig, getUpcoming, getPopularMovi
     }
 
     return (
-        <h1>waiting</h1>
+        <div className="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     )
 }
 
