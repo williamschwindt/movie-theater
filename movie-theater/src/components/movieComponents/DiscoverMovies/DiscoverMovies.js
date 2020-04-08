@@ -1,16 +1,66 @@
 import React, { useEffect } from 'react';
 import { getDiscoverMovies } from '../../../actions/movieActions/getDiscoverMovies';
+import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
 import { connect } from 'react-redux';
+import { NavBar } from '../../navbar/NavBar';
+import { Footer } from '../../Footer/Footer';
+import { Link } from 'react-router-dom';
 
-const DiscoverMovies = ({ getDiscoverMovies }) => {
+const DiscoverMovies = ({ getDiscoverMovies, getMovieConfig, discoverMovies, isFetchingDiscoverMovies, errorDiscoverMovies, config }) => {
+
     useEffect(() => {
-        getDiscoverMovies("popularity.desc")
-    }, [])
+        getDiscoverMovies("popularity.desc");
+        getMovieConfig();
+    }, [getDiscoverMovies, getMovieConfig])
+
+    if(isFetchingDiscoverMovies === 'fetched') {
+        return (
+            <div className="discover">
+                <NavBar />
+                <div className="search-filter-bar">
+                    <select>
+                        <option>Popularity Ascending</option>
+                        <option>Popularity Descending</option>
+                        <option>Release Date Ascending</option>
+                        <option>Release Date Descending</option>
+                        <option>Revenue Ascending</option>
+                        <option>Revenue Descending</option>
+                        <option>Vote Average Ascending</option>
+                        <option>Vote Average Descending</option>
+                    </select>
+                    <input placeholder="search by name"/>
+                    <input placeholder="search by year"/>
+                </div>
+                <div className="discover-movies">
+                    {discoverMovies.map(movie => {
+                        return(
+                            <Link to={`/discovermovie/${movie.id}`}key={movie.id} className="discover-movie">
+                                <img src={`${config}w200${movie.poster_path}`} alt="movie" />
+                                <h2>{movie.title}</h2>
+                            </Link>
+                        )
+                    })}
+                </div>
+                <Footer />
+            </div>
+        )
+    }
+
+    if(isFetchingDiscoverMovies === true) {
+        return (
+            <div className="discover">
+                <div className="lds-ring">
+                    <div>test</div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        )
+    }
 
     return (
-        <div>
-            test
-        </div>
+        <h1>There was a problem loading this page</h1>
     )
 }
 
@@ -18,8 +68,10 @@ const DiscoverMovies = ({ getDiscoverMovies }) => {
      return {
          discoverMovies: state.discoverMoviesReducer.movies,
          isFetchingDiscoverMovies: state.discoverMoviesReducer.isFetching,
-         errorDiscoverMovies: state.discoverMoviesReducer.error
+         errorDiscoverMovies: state.discoverMoviesReducer.error,
+
+         config: state.movieConfigReducer.config
      }
  }
 
-export default connect(mapStateToProps, {getDiscoverMovies})(DiscoverMovies);
+export default connect(mapStateToProps, {getDiscoverMovies, getMovieConfig})(DiscoverMovies);
