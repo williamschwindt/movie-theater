@@ -4,7 +4,7 @@ import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
 import { connect } from 'react-redux';
 import { NavBar } from '../../navbar/NavBar';
 import { Footer } from '../../Footer/Footer';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; 
 
 const DiscoverMovies = ({ getDiscoverMovies, getMovieConfig, discoverMovies, isFetchingDiscoverMovies, errorDiscoverMovies, config }) => {
 
@@ -17,26 +17,29 @@ const DiscoverMovies = ({ getDiscoverMovies, getMovieConfig, discoverMovies, isF
         return (
             <div className="discover">
                 <NavBar />
-                <div className="search-filter-bar">
-                    <select>
-                        <option>Popularity Ascending</option>
-                        <option>Popularity Descending</option>
-                        <option>Release Date Ascending</option>
-                        <option>Release Date Descending</option>
-                        <option>Revenue Ascending</option>
-                        <option>Revenue Descending</option>
-                        <option>Vote Average Ascending</option>
-                        <option>Vote Average Descending</option>
-                    </select>
-                    <input placeholder="search by name"/>
-                    <input placeholder="search by year"/>
-                </div>
+                <h1 id="discover-title">Discover</h1>
+                <form className="search-filter-bar">
+                    <div>
+                        <select>
+                            <option value="" disabled selected>Add A Filter</option>
+                            <option>Popularity Ascending</option>
+                            <option>Popularity Descending</option>
+                            <option>Release Date Ascending</option>
+                            <option>Release Date Descending</option>
+                            <option>Revenue Ascending</option>
+                            <option>Revenue Descending</option>
+                            <option>Vote Average Ascending</option>
+                            <option>Vote Average Descending</option>
+                        </select>
+                        <input placeholder="title"/>
+                    </div>
+                    <button>Search</button>
+                </form>
                 <div className="discover-movies">
                     {discoverMovies.map(movie => {
                         return(
                             <Link to={`/discovermovie/${movie.id}`}key={movie.id} className="discover-movie">
                                 <img src={`${config}w200${movie.poster_path}`} alt="movie" />
-                                <h2>{movie.title}</h2>
                             </Link>
                         )
                     })}
@@ -50,7 +53,7 @@ const DiscoverMovies = ({ getDiscoverMovies, getMovieConfig, discoverMovies, isF
         return (
             <div className="discover">
                 <div className="lds-ring">
-                    <div>test</div>
+                    <div></div>
                     <div></div>
                     <div></div>
                     <div></div>

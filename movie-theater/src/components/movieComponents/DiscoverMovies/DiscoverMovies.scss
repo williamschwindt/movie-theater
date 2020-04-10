@@ -1,4 +1,92 @@
 .discover {
+
+    #discover-title {
+        text-align: center;
+        width: 30%;
+        font-size: 4rem;
+        margin: 40px auto;
+        border-bottom: 1px solid rgb(48, 62, 255);
+        padding-bottom: 15px;
+    }
+
+    .search-filter-bar {
+        width: 80%;
+        margin: 80px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        div {
+            margin: 0 auto;
+
+            select {
+                appearance: none;
+                padding: 5px;
+                border: none;
+                font-size: 2rem;
+                outline: none;
+                margin-right: 40px;
+
+                option {
+                    padding: 5px;
+                }
+            }
+    
+            input {
+                padding: 5px;
+                border: none;
+                font-size: 2rem;
+                border-radius: 5px;
+            }
+        }
+
+        button {
+            cursor: pointer;
+            color: #fff;
+            background-color: rgb(16, 17, 49);
+            margin: 30px;
+            width: 150px;
+            font-size: 2rem;
+            border-radius: 15px;
+            padding: 5px;
+            border: 1px solid #fff;
+        }
+    }
+
+    .discover-movies {
+        width: 70%;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+
+        .discover-movie {
+            width: 150px;
+            margin: 2% 2%;
+            text-decoration: none;
+
+            img {
+                transition: .3s;
+                width: 150px;
+                opacity: .8;
+
+                &:hover {
+                    transition: .3s;
+                    opacity: 1;
+                    transform: scale(1.1);
+                }
+            }
+
+            h2 {
+                margin-top: 5px;
+                font-size: 1.8rem;
+                color: #fff;
+                text-align: center;
+                font-weight: 300;
+            }
+        }
+    }
+
     .lds-ring {
         display: inline-block;
         position: absolute;
