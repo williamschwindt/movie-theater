@@ -5,16 +5,17 @@
         width: 30%;
         font-size: 4rem;
         margin: 40px auto;
-        border-bottom: 1px solid rgb(48, 62, 255);
-        padding-bottom: 15px;
+        // border-bottom: 1px solid rgb(48, 62, 255);
+        // padding-bottom: 15px;
     }
 
     .search-filter-bar {
         width: 80%;
-        margin: 80px auto;
+        margin: 0 auto;
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin-bottom: 30px;
 
         div {
             margin: 0 auto;
@@ -51,6 +52,11 @@
             padding: 5px;
             border: 1px solid #fff;
         }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 300;
+        }
     }
 
     .discover-movies {
@@ -73,7 +79,7 @@
                 &:hover {
                     transition: .3s;
                     opacity: 1;
-                    transform: scale(1.1);
+                    transform: scale(1.05);
                 }
             }
 
@@ -83,6 +89,29 @@
                 color: #fff;
                 text-align: center;
                 font-weight: 300;
+            }
+        }
+    }
+
+    .discover-btns {
+        margin: 0 auto;
+        width: 35%;
+        display: flex;
+        justify-content: space-between;
+
+        #discover-next, #discover-prev {
+            cursor: pointer;
+            outline: none;
+            display: flex;
+            align-content: center;
+            font-size: 4rem;
+            color: #fff;
+            background-color: transparent;
+            border: none;
+
+            span {
+                font-size: 2rem;
+                margin-top: 6px;
             }
         }
     }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getDiscoverMovies } from '../../../actions/movieActions/getDiscoverMovies';
 import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
 import { connect } from 'react-redux';
@@ -7,11 +7,26 @@ import { Footer } from '../../Footer/Footer';
 import { Link } from 'react-router-dom'; 
 
 const DiscoverMovies = ({ getDiscoverMovies, getMovieConfig, discoverMovies, isFetchingDiscoverMovies, errorDiscoverMovies, config }) => {
+    const [page, setPage] = useState(1);
+    const [filter, setFilter] = useState("popularity.desc")
 
     useEffect(() => {
-        getDiscoverMovies("popularity.desc");
+        getDiscoverMovies(page);
         getMovieConfig();
-    }, [getDiscoverMovies, getMovieConfig])
+    }, [getDiscoverMovies, getMovieConfig, page])
+
+    const nextPage = () => {
+        if(page < 500) {
+            setPage(page + 1);
+        }
+    }
+
+    const previousPage = () => {
+        if(page > 1) {
+            setPage(page - 1);
+        }
+    }
+
 
     if(isFetchingDiscoverMovies === 'fetched') {
         return (
@@ -22,18 +37,19 @@ const DiscoverMovies = ({ getDiscoverMovies, getMovieConfig, discoverMovies, isF
                     <div>
                         <select>
                             <option value="" disabled selected>Add A Filter</option>
-                            <option>Popularity Ascending</option>
-                            <option>Popularity Descending</option>
-                            <option>Release Date Ascending</option>
-                            <option>Release Date Descending</option>
-                            <option>Revenue Ascending</option>
-                            <option>Revenue Descending</option>
-                            <option>Vote Average Ascending</option>
-                            <option>Vote Average Descending</option>
+                            <option value="popularity.asc">Popularity Ascending</option>
+                            <option value="popularity.desc">Popularity Descending</option>
+                            <option value="realease_date.asc">Release Date Ascending</option>
+                            <option value="realease_date.desc">Release Date Descending</option>
+                            <option value="revenue.asc">Revenue Ascending</option>
+                            <option value="revenue.desc">Revenue Descending</option>
+                            <option value="vote_average.asc">Vote Average Ascending</option>
+                            <option value="vote_average.desc">Vote Average Descending</option>
                         </select>
                         <input placeholder="title"/>
                     </div>
                     <button>Search</button>
+                    <h2>page: {page}</h2>
                 </form>
                 <div className="discover-movies">
                     {discoverMovies.map(movie => {
@@ -43,6 +59,10 @@ const DiscoverMovies = ({ getDiscoverMovies, getMovieConfig, discoverMovies, isF
                             </Link>
                         )
                     })}
+                </div>
+                <div className="discover-btns">
+                    <button id="discover-next" onClick={previousPage}><ion-icon name="ios-arrow-back"/> <span>prev</span></button>
+                    <button id="discover-prev" onClick={nextPage}><span>next</span><ion-icon name="ios-arrow-forward"/></button>
                 </div>
                 <Footer />
             </div>
