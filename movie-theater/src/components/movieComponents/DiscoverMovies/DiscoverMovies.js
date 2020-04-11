@@ -7,24 +7,47 @@ import { Footer } from '../../Footer/Footer';
 import { Link } from 'react-router-dom'; 
 
 const DiscoverMovies = ({ getDiscoverMovies, getMovieConfig, discoverMovies, isFetchingDiscoverMovies, errorDiscoverMovies, config }) => {
+    let currentTime = new Date();
+    let currYear = currentTime.getFullYear();
     const [page, setPage] = useState(1);
-    const [filter, setFilter] = useState("popularity.desc")
+    
+    const [discoverState, setDiscoverState] = useState({
+        filter: "popularity.desc",
+        year: currYear,
+        vote: 0
+    })
+    console.log(discoverState);
 
     useEffect(() => {
-        getDiscoverMovies(page);
+        getDiscoverMovies("popularity.desc", 1, currYear, 0);
         getMovieConfig();
-    }, [getDiscoverMovies, getMovieConfig, page])
+    }, [getDiscoverMovies, getMovieConfig, currYear])
 
     const nextPage = () => {
         if(page < 500) {
+            getDiscoverMovies(discoverState.filter, page +1, discoverState.year, discoverState.vote);
             setPage(page + 1);
         }
     }
 
     const previousPage = () => {
         if(page > 1) {
+            getDiscoverMovies(discoverState.filter, page -1, discoverState.year, discoverState.vote);
             setPage(page - 1);
         }
+    }
+
+    const changeHandler = (e) => {
+        setDiscoverState({
+            ...discoverState,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const search = (e) => {
+        e.preventDefault();
+        getDiscoverMovies(discoverState.filter, 1, discoverState.year, discoverState.vote)
+        setPage(1);
     }
 
 
@@ -35,27 +58,26 @@ const DiscoverMovies = ({ getDiscoverMovies, getMovieConfig, discoverMovies, isF
                 <h1 id="discover-title">Discover</h1>
                 <form className="search-filter-bar">
                     <div>
-                        <select>
+                        <select name="filter" onChange={changeHandler}>
                             <option value="" disabled selected>Add A Filter</option>
                             <option value="popularity.asc">Popularity Ascending</option>
                             <option value="popularity.desc">Popularity Descending</option>
-                            <option value="realease_date.asc">Release Date Ascending</option>
-                            <option value="realease_date.desc">Release Date Descending</option>
                             <option value="revenue.asc">Revenue Ascending</option>
                             <option value="revenue.desc">Revenue Descending</option>
                             <option value="vote_average.asc">Vote Average Ascending</option>
                             <option value="vote_average.desc">Vote Average Descending</option>
                         </select>
-                        <input placeholder="title"/>
+                        <input name="year" placeholder="year" onChange={changeHandler}/>
+                        <input name="vote" placeholder="rating" onChange={changeHandler}/>
                     </div>
-                    <button>Search</button>
+                    <button onClick={search}>Search</button>
                     <h2>page: {page}</h2>
                 </form>
                 <div className="discover-movies">
                     {discoverMovies.map(movie => {
                         return(
                             <Link to={`/discovermovie/${movie.id}`}key={movie.id} className="discover-movie">
-                                <img src={`${config}w200${movie.poster_path}`} alt="movie" />
+                                <img src={`${config}w200${movie.poster_path}`} alt={movie.title} />
                             </Link>
                         )
                     })}
