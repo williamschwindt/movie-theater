@@ -15,7 +15,7 @@ export const Footer = () => {
                 </div>
                 <div className="copyright">
                     <h2>Copyright &copy;2020</h2>
-                    <p>Code and design by William Schwindt</p>
+                    <p>William Schwindt</p>
                 </div>
             </div>
             <div className="moviedb-logo">

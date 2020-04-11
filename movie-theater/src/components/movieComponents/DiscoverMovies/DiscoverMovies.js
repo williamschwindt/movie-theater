@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getDiscoverMovies } from '../../../actions/movieActions/getDiscoverMovies';
 import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
 import { connect } from 'react-redux';
-import { NavBar } from '../../navbar/NavBar';
+import NavBar from '../../navbar/NavBar';
 import { Footer } from '../../Footer/Footer';
 import { Link } from 'react-router-dom'; 
 
@@ -59,7 +59,7 @@ const DiscoverMovies = ({ getDiscoverMovies, getMovieConfig, discoverMovies, isF
                 <form className="search-filter-bar">
                     <div>
                         <select name="filter" onChange={changeHandler}>
-                            <option value="" disabled selected>Add A Filter</option>
+                            <option value="" disabled selected>filters</option>
                             <option value="popularity.asc">Popularity Ascending</option>
                             <option value="popularity.desc">Popularity Descending</option>
                             <option value="revenue.asc">Revenue Ascending</option>

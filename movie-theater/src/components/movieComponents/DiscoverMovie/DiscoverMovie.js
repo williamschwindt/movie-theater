@@ -45,7 +45,7 @@ const Movie = (props) => {
 
         return(
             <div className="movie">
-                <a onClick={goBack} className="m-back"><ion-icon name="ios-arrow-back"/></a>
+                <div onClick={goBack} className="m-back"><ion-icon name="ios-arrow-back"/></div>
                 <div className="movie-background" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 9)), url(${config}w1280${details.backdrop_path})`}}></div> 
                 <div className="movie-details">
                     <h1>{details.title}</h1>

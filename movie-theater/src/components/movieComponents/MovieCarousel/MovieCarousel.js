@@ -3,6 +3,13 @@ import { Link } from 'react-router-dom';
 
 export const MovieCarousel = (props) => {
 
+    const shortendText = (text, maxLength) => {
+        if(text.length > maxLength) {
+            text = text.substr(0,maxLength) + '...';
+        }
+        return text;
+    }
+
     const slide = (amount) => {
         const row = document.querySelectorAll(`.${props.class}`);
         for(let i = 0; i < row.length; i++) { 
@@ -36,7 +43,7 @@ export const MovieCarousel = (props) => {
                     return (
                         <Link onClick={props.stopSliding} to={`/movie/${movie.id}`}  key={movie.id} className={props.class}>
                             <img src={`${props.config}w1280${movie.poster_path}`} alt="movie"/>
-                            <h2>{movie.title}</h2>
+                            <h2>{shortendText(movie.title, 40)}</h2>
                         </Link>
                     )
                 })}

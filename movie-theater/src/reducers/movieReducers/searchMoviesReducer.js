@@ -1,4 +1,4 @@
-import { GET_SEARCH_MOVIES_START, GET_SEARCH_MOVIES_SUCCESS, GET_SEARCH_MOVIES_FAILURE } from '../../actions/movieActions/getSearchMovies';
+import { GET_SEARCH_MOVIES_START, GET_SEARCH_MOVIES_SUCCESS, GET_SEARCH_MOVIES_FAILURE } from '../../actions/types';
 
 const initialState = {
     movies: [],

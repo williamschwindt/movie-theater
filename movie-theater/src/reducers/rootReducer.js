@@ -10,6 +10,7 @@ import { movieDetailsRuducer } from './movieReducers/movieDetailsReducer';
 import { movieCastReducer } from './movieReducers/movieCastReducer';
 import { movieReviewReducer } from './movieReducers/movieReviewReducer';
 import { discoverMoviesReducer } from './movieReducers/discoverMoviesReducer';
+import { searchMoviesReducer } from './movieReducers/searchMoviesReducer';
 
 export const rootReducer = combineReducers({
     movieConfigReducer,
@@ -21,5 +22,6 @@ export const rootReducer = combineReducers({
     movieDetailsRuducer,
     movieCastReducer,
     movieReviewReducer,
-    discoverMoviesReducer
+    discoverMoviesReducer,
+    searchMoviesReducer
 });
