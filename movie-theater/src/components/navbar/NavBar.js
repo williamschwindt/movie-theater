@@ -8,7 +8,9 @@ export const NavBar = () => {
                 <h1>The Film House</h1>
                 <ion-icon className="film-icon" name="ios-film"/>
             </div>
-            <div>
+            <input placeholder="search" />
+            <button><ion-icon name="ios-search"/></button>
+            <div className="nav-links">
                 <a href="/">Home</a>
                 <a href="/discover">Discover</a>
                 <Link to="/login">Login</Link>
