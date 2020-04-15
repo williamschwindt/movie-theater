@@ -6,6 +6,7 @@ import Movie from './components/movieComponents/Movie/Movie';
 import DiscoverMovies from './components/movieComponents/DiscoverMovies/DiscoverMovies';
 import DiscoverMovie from './components/movieComponents/DiscoverMovie/DiscoverMovie';
 import SearchMovies from './components/movieComponents/SearchMovies/SearchMovies';
+import Login from './components/Login/Login';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
       <Route exact path="/" component={Home}/>
       <Route exact path ="/search/:query" component={SearchMovies}/>
       <Route exact path="/discover" component={DiscoverMovies}/>
-      <Route exact path="/login" />
+      <Route exact path="/login" component={Login}/>
       <Route exact path="/movie/:id" component={Movie}/>
       <Route exact path="/discovermovie/:id" component={DiscoverMovie}/>
     </div>

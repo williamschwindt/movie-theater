@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { getSearchMovies } from '../../actions/movieActions/getSearchMovies';
 
-const NavBar = ({ getSearchMovies, movies, isFetching, error }) => {
+const NavBar = () => {
     const [query, setQuery] = useState("");
 
     const changeHandler = (e) => {
@@ -21,18 +19,10 @@ const NavBar = ({ getSearchMovies, movies, isFetching, error }) => {
             <div className="nav-links">
                 <a href="/">Home</a>
                 <a href="/discover">Discover</a>
-                <Link to="/login">Login</Link>
+                <a href="/login">Login</a>
             </div>
         </nav>
     )
 }
 
-const mapStateToProps = state => {
-    return {
-        movies: state.searchMoviesReducer.movies,
-        isFetching: state.searchMoviesReducer.isFetching,
-        error: state.searchMoviesReducer.error
-    }
-}
-
-export default connect(mapStateToProps, {getSearchMovies})(NavBar);
+export default NavBar;

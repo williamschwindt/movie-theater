@@ -28,5 +28,4 @@ export const requestTokenReducer = (state = initialState, action) => {
                 error: action.payload
             }
     }
-
 }
