@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { getRequestToken } from '../../actions/accoutActions/getRequestToken';
 import { connect } from 'react-redux';
+import NavBar from '../navbar/NavBar';
 
 const Login = ({ getRequestToken, token }) => {
 
@@ -9,7 +10,14 @@ const Login = ({ getRequestToken, token }) => {
     }, [getRequestToken])
 
     return (
-        <a href={`https://www.themoviedb.org/authenticate/${token}?redirect=https://www.theflimhouse.now.sh/approved`} rel="noopener noreferrer" target='_blank'>Login With TMDB</a>
+        <div className="login-container">
+            <NavBar/>
+            <div className="TMDB-login">
+                <h1>Login With Your TMDB Accoout</h1>
+                <a href={`https://www.themoviedb.org/authenticate/${token}?redirect=https://www.theflimhouse.now.sh/approved`} rel="noopener noreferrer" target='_blank'>Login</a>
+                <a href="/">Back to browse</a>
+            </div>
+        </div>
     )
 }
 
