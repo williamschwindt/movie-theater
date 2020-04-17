@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { getSearchMovies } from '../../actions/movieActions/getSearchMovies';
 
 const NavBar = () => {
     const [query, setQuery] = useState("");

@@ -3,7 +3,9 @@ import TrendingMovies from './movieComponents/TrendingMovies/TrendingMovies';
 import NavBar from '../components/navbar/NavBar';
 import { Footer } from '../components/Footer/Footer';
 
-export const Home = () => {
+
+
+const Home = () => {
     return(
         <div>
             <NavBar />
@@ -12,3 +14,5 @@ export const Home = () => {
         </div>
     )
 }
+
+export default Home;

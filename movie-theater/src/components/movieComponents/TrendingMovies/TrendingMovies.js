@@ -5,12 +5,31 @@ import { getTrendingMovies } from '../../../actions/movieActions/getTrendingMovi
 import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
 import { getMovieGenres } from '../../../actions/movieActions/getMovieGenres';
 import HomeMovies from '../HomeMovies/HomeMovies';
+import axios from 'axios';
 
 const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
     trendingMovies, isFetchingTrendingMovies, errorTrendingMovies, 
     config,
     movieGenres, isFetchingMovieGenres, errorMovieGenres
     }) => {
+
+
+    //session id
+    const token = sessionStorage.getItem("token");
+    useEffect(() => {
+        axios
+        .post(`https://api.themoviedb.org/3/authentication/session/new?api_key=f45d181e4568e696ff8f68048d522dc8`, { "request_token": `${token}` })
+        .then(res => {
+            console.log(res.data);
+            sessionStorage.setItem("session-id", res.data.session_id);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }, [token])
+
+    console.log(sessionStorage.getItem("token"));
+    console.log(sessionStorage);
 
     useEffect(() => {
         getTrendingMovies();
@@ -142,7 +161,7 @@ const mapStateToProps = state => {
 
         movieGenres: state.movieGenresRuducer.genres,
         isFetchingMovieGenres: state.movieGenresRuducer.isFetching,
-        errorMovieGenres: state.movieGenresRuducer.error       
+        errorMovieGenres: state.movieGenresRuducer.error
     }
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 import { Route } from 'react-router-dom'; 
-import { Home } from './components/Home';
+import Home from './components/Home';
 import Movie from './components/movieComponents/Movie/Movie';
 import DiscoverMovies from './components/movieComponents/DiscoverMovies/DiscoverMovies';
 import DiscoverMovie from './components/movieComponents/DiscoverMovie/DiscoverMovie';

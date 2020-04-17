@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import NavBar from '../../navbar/NavBar';
 import { Footer } from '../../Footer/Footer';
 import { connect } from 'react-redux';

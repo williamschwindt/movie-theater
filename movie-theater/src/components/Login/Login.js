@@ -9,7 +9,7 @@ const Login = ({ getRequestToken, token }) => {
     }, [getRequestToken])
 
     return (
-        <a href={`https://www.themoviedb.org/authenticate/${token}?redirect_to=http://www.theflimhouse.now.sh/approved`}>Login With TMDB</a>
+        <a href={`https://www.themoviedb.org/authenticate/${token}?redirect=https://www.theflimhouse.now.sh/approved`} rel="noopener noreferrer" target='_blank'>Login With TMDB</a>
     )
 }
 

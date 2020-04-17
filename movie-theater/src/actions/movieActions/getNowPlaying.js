@@ -8,7 +8,6 @@ export const getNowPlaying = () => dispatch => {
     axios
     .get("https://api.themoviedb.org/3/movie/now_playing?api_key=f45d181e4568e696ff8f68048d522dc8&language=en-US&page=1")
     .then(res => {
-        console.log(res);
         dispatch({ type: GET_NOW_PLAYING_SUCCESS, payload: res.data.results });
     })
     .catch(err => {
