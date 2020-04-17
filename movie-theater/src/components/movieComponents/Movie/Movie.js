@@ -95,7 +95,6 @@ const Movie = (props) => {
 
     if(props.isFetchingMovieDetails === 'fetched' && props.isFetchingMovieCast === 'fetched' && props.isFetchingMovieReviews === 'fetched' && config !== '' && props.errorMovieDetails === '') {
         let movieCast = cast.splice(0, 5);
-        console.log(movieCast);
 
         return(
             <div className="movie">
