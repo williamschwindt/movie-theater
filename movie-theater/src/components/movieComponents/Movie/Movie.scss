@@ -72,6 +72,57 @@
                 color: #fff; 
             }
         }
+
+        .rate-movie {
+            color: #fff;
+            margin-left: 30px;
+            cursor: pointer;
+            font-size: 2rem;
+            background: transparent;
+            outline: none;
+            border: none; 
+            padding: 0;
+        }
+
+        #rate-movie-box {
+            // background-color: rgb(77, 77, 77);
+            // padding: 15px;
+            display: none;
+            margin-left: 20px;
+
+            input {
+                padding: 3px;
+                color: #fff;
+                appearance: none;
+                font-size: 1.5rem;
+                border: 1px solid #fff;
+                background-color: #000;
+                outline: none;
+                margin-right: 5px;
+            }
+
+            button {
+                transition: .3s;
+                cursor: pointer;
+                outline: none;
+                background-color: transparent;
+                color: #fff;
+                border: none;
+                font-size: 1.8rem;
+
+                &:hover {
+                    transition: .3s;
+                    color: rgb(48, 62, 255);
+                }
+            }
+
+            p {
+                color: rgb(255, 0, 0);
+                font-size: 1.8rem;
+                font-weight: 300;
+                margin-top: 10px;
+            }
+        }
     }
     .summary-container {
         transition: .5s;

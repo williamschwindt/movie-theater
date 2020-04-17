@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { getMovieDetails } from '../../../actions/movieActions/getMovieDetails';
 import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
 import { getMovieCast } from '../../../actions/movieActions/getMovieCast';
 import { getMovieReview } from '../../../actions/movieActions/getMovieReview';
 import { ActorCarousel } from '../ActorCarousel/ActorCarousel';
+import axios from 'axios';
 
 const Movie = (props) => {
     const { id } = props.match.params;
@@ -16,7 +17,6 @@ const Movie = (props) => {
     const { details } = props;
     const { cast } = props;
     const { reviews } = props;
-    console.log(reviews);
 
     useEffect(() => {
         getMovieDetails(id);
@@ -29,6 +29,52 @@ const Movie = (props) => {
         document.querySelector('.summary-container').classList.toggle('view');
     }
 
+    const showInput = () => {
+        if(didVote === false) {
+            document.querySelector('#rate-movie-box').style.display = 'inline';
+        }
+    }
+
+    const checkNumber = (num) => {
+        if(num >= 1 && num <= 10) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    let rating;
+    console.log(rating);
+    const changeRating = (e) => {
+        rating = e.target.value
+    }
+
+    let didVote = false;
+    const rateMovie = () => {
+        if(didVote === false) {
+            if(sessionStorage.getItem("session-id") && checkNumber(rating)) {
+                axios
+                    .post(`https://api.themoviedb.org/3/movie/${details.id}/rating?api_key=f45d181e4568e696ff8f68048d522dc8&session_id=${sessionStorage.getItem('session-id')}`, { "value": rating })
+                    .then(res => {
+                        console.log(res);
+                        document.querySelector('#error-message').innerHTML = 'success';
+                        document.querySelector('#error-message').style.color = 'rgb(30, 255, 0)';
+                        didVote = true;
+                        setTimeout(() => {
+                            document.querySelector('#rate-movie-box').style.display = 'none';
+                        }, 2000);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            }
+            else {
+                document.querySelector('#error-message').innerHTML = 'please chose a number between 1 an 10';
+            }
+        }
+    }
+
     const shortendText = (text, maxLength) => {
         if(text.length > maxLength) {
             text = text.substr(0,maxLength) + '...';
@@ -38,6 +84,7 @@ const Movie = (props) => {
 
     if(props.isFetchingMovieDetails === 'fetched' && props.isFetchingMovieCast === 'fetched' && props.isFetchingMovieReviews === 'fetched' && config !== '' && props.errorMovieDetails === '') {
         let movieCast = cast.splice(0, 5);
+        console.log(movieCast);
 
         return(
             <div className="movie">
@@ -57,6 +104,12 @@ const Movie = (props) => {
                         <p className="runtime">{details.runtime} minutes</p>
                     </div>
                     <button onClick={viewSummary} className="view-summary"><p>Summary</p></button>
+                    <button onClick={showInput} className="rate-movie">Rate this movie</button>
+                    <div id="rate-movie-box">
+                        <input onChange={changeRating} placeholder="10" type="number" min="1" max="10"/>
+                        <button onClick={rateMovie}>Submit</button>
+                        <p id="error-message"></p>
+                    </div>
                 </div>
                 <div className="summary-container">
                     <p>{details.overview}</p>

@@ -33,6 +33,7 @@ div {
                                 box-shadow: 0 0 5px;
                             }
                     }
+
                     h2 {
                         color: #fff;
                         font-size: 1.8rem;
@@ -62,14 +63,14 @@ div {
         z-index: 2;
         position: absolute;
         left: 5%;
-        top: 30%;
+        top: 25%;
     }
 
     .next {
         z-index: 2;
         position: absolute; 
         right: 5%;
-        top: 30%;
+        top: 25%;
     }
 
     .back.c, .next.c {
