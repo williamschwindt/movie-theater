@@ -45,7 +45,6 @@ const Movie = (props) => {
     }
 
     let rating;
-    console.log(rating);
     const changeRating = (e) => {
         rating = e.target.value
     }
@@ -53,8 +52,9 @@ const Movie = (props) => {
     let didVote = false;
     const rateMovie = () => {
         if(didVote === false) {
-            if(sessionStorage.getItem("session-id") && checkNumber(rating)) {
-                axios
+            if(sessionStorage.getItem("session-id")) {
+                if(checkNumber(rating)) {
+                    axios
                     .post(`https://api.themoviedb.org/3/movie/${details.id}/rating?api_key=f45d181e4568e696ff8f68048d522dc8&session_id=${sessionStorage.getItem('session-id')}`, { "value": rating })
                     .then(res => {
                         console.log(res);
@@ -66,11 +66,22 @@ const Movie = (props) => {
                         }, 2000);
                     })
                     .catch(err => {
-                        console.log(err);
+                        document.querySelector('#error-message').innerHTML = 'something went wrong';
+                        document.querySelector('#error-message').style.color = 'rgb(30, 255, 0)';
+                        setTimeout(() => {
+                            document.querySelector('#rate-movie-box').style.display = 'none';
+                        }, 2000);
                     })
+                } else {
+                    document.querySelector('#error-message').innerHTML = 'please chose a number between 1 and 10';
+                }
             }
             else {
-                document.querySelector('#error-message').innerHTML = 'please chose a number between 1 an 10';
+                document.querySelector('#error-message').innerHTML = 'you must be loged in to rate a mvoie';
+                didVote = true;
+                setTimeout(() => {
+                    document.querySelector('#rate-movie-box').style.display = 'none';
+                }, 3000);
             }
         }
     }
