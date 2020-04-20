@@ -5,7 +5,7 @@ import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
 import { getMovieCast } from '../../../actions/movieActions/getMovieCast';
 import { getMovieReview } from '../../../actions/movieActions/getMovieReview';
 import { ActorCarousel } from '../ActorCarousel/ActorCarousel';
-import NavBar from '../../navbar/NavBar';
+import MovieNavBar from '../MovieNavBar/MovieNavBar';
 import { Footer } from '../../Footer/Footer';
 import axios from 'axios';
 
@@ -37,7 +37,7 @@ const Movie = (props) => {
             sessionStorage.setItem("session-id", res.data.session_id);
         })
         .catch(err => {
-            console.log(err);
+            console.log('not logged in');
         })
     }, [token])
 
@@ -63,7 +63,7 @@ const Movie = (props) => {
                 displayMessage('You Have Already Rated This Movie', 'rgb(255, 0, 0)');
             }
         } else {
-            displayMessage('You Must Be Loged In To Rate A Movie', 'rgb(255, 0, 0)');
+            displayMessage('You Must Be Logged In To Rate A Movie', 'rgb(255, 0, 0)');
         }
     }
 
@@ -122,7 +122,7 @@ const Movie = (props) => {
 
         return(
             <div className="movie">
-                <NavBar/>
+                <MovieNavBar/>
                 <div onClick={goBack} className="m-back"><ion-icon name="ios-arrow-back"/></div>
                 <div className="movie-background" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 9)), url(${config}w1280${details.backdrop_path})`}}></div> 
                 <div className="movie-details">
@@ -147,7 +147,7 @@ const Movie = (props) => {
                     <p id="message"></p>
                 </div>
                 <div className="summary-container">
-                    <p>{details.overview}</p>
+                    <p>{shortendText(details.overview, 370)}</p>
                 </div>
                 <h2>Cast</h2>
                 <ActorCarousel config={config} movieCast={movieCast}/>

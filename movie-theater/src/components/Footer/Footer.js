@@ -9,8 +9,8 @@ export const Footer = () => {
                     <h1>The Film House</h1>
                     <div className="footer-links">
                         <a href="/">home</a>
-                        <Link to="/">discover</Link>
-                        <Link to="/">login</Link>
+                        <Link to="/discover">discover</Link>
+                        <Link to="/login">login</Link>
                     </div>
                 </div>
                 <div className="copyright">

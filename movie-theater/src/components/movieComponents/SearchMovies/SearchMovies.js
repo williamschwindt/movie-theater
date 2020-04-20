@@ -18,7 +18,6 @@ const SearchMovies = (props) => {
         getMovieConfig();
     }, [query, getSearchMovies, getMovieConfig])
 
-    console.log(movies);
     return (
         <div className="discover">
                 <NavBar />

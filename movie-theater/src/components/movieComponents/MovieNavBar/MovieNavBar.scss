@@ -1,0 +1,26 @@
+.movie-nav-links {
+    position: absolute;
+    top: 2vh;
+    right: 0;
+    z-index: 1;
+    background-color: transparent;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 2.5rem;
+    padding: 10px 20px;
+    align-content: center;
+
+        a {
+            transition: .3s;
+            font-size: 2rem;
+            text-decoration: none;
+            color: #fff;
+            margin: 0 15px;
+            font-weight: 300;
+
+                &:hover {
+                    transition: .3s;
+                    color: rgb(48, 62, 255);
+                }
+        }
+}

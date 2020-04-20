@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { getTrendingMovies } from '../../../actions/movieActions/getTrendingMovies';
 import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
 import { getMovieGenres } from '../../../actions/movieActions/getMovieGenres';
+import NavBar from '../../navbar/NavBar';
 import HomeMovies from '../HomeMovies/HomeMovies';
 import axios from 'axios';
 
@@ -24,7 +25,7 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
             sessionStorage.setItem("session-id", res.data.session_id);
         })
         .catch(err => {
-            console.log(err);
+            console.log('not logged in');
         })
     }, [token])
 
@@ -97,7 +98,8 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
         }
 
         return(
-            <div>
+            <div className="home-container">
+                <NavBar/>
                 <button className="t-back" onClick={prevSlide}><ion-icon name="ios-arrow-back"/></button>
                 <button className="t-next" onClick={nextSlide}><ion-icon name="ios-arrow-forward"/></button>
                 <div className="trending-movies">

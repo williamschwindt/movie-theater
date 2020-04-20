@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getMovieDetails } from '../../../actions/movieActions/getMovieDetails';
 import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
 import { getMovieCast } from '../../../actions/movieActions/getMovieCast';
 import { getMovieReview } from '../../../actions/movieActions/getMovieReview';
 import { ActorCarousel } from '../ActorCarousel/ActorCarousel';
-import NavBar from '../../navbar/NavBar';
+import MovieNavBar from '../MovieNavBar/MovieNavBar';
 import { Footer } from '../../Footer/Footer';
 import axios from 'axios';
 
@@ -26,6 +26,19 @@ const Movie = (props) => {
         getMovieCast(id);
         getMovieReview(id);
     }, [getMovieDetails, id, getMovieConfig, getMovieCast ,getMovieReview])
+
+    //session id
+    const token = sessionStorage.getItem("token");
+    useEffect(() => {
+        axios
+        .post(`https://api.themoviedb.org/3/authentication/session/new?api_key=f45d181e4568e696ff8f68048d522dc8`, { "request_token": `${token}` })
+        .then(res => {
+            sessionStorage.setItem("session-id", res.data.session_id);
+        })
+        .catch(err => {
+            console.log('not logged in');
+        })
+    }, [token])
 
     const viewSummary = () => {
         document.querySelector('.summary-container').classList.toggle('view');
@@ -49,7 +62,7 @@ const Movie = (props) => {
                 displayMessage('You Have Already Rated This Movie', 'rgb(255, 0, 0)');
             }
         } else {
-            displayMessage('You Must Be Loged In To Rate A Movie', 'rgb(255, 0, 0)');
+            displayMessage('You Must Be Logged In To Rate A Movie', 'rgb(255, 0, 0)');
         }
     }
 
@@ -73,7 +86,6 @@ const Movie = (props) => {
             axios
             .post(`https://api.themoviedb.org/3/movie/${details.id}/rating?api_key=f45d181e4568e696ff8f68048d522dc8&session_id=${sessionStorage.getItem('session-id')}`, { "value": rating })
             .then(res => {
-                console.log(res);
                 displayMessage(`You Gave ${details.title} ${rating} Stars`, 'rgb(30, 255, 0)');
                 didVote = true;
                 setTimeout(() => {
@@ -104,7 +116,7 @@ const Movie = (props) => {
 
         return(
             <div className="movie">
-                <NavBar/>
+                <MovieNavBar/>
                 <a href="/" className="m-back"><ion-icon name="ios-arrow-back"/></a>
                 <div className="movie-background" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 9)), url(${config}w1280${details.backdrop_path})`}}></div> 
                 <div className="movie-details">
@@ -129,7 +141,7 @@ const Movie = (props) => {
                     <p id="message"></p>
                 </div>
                 <div className="summary-container">
-                    <p>{details.overview}</p>
+                    <p>{shortendText(details.overview, 370)}</p>
                 </div>
                 <h2>Cast</h2>
                 <ActorCarousel config={config} movieCast={movieCast}/>

@@ -8,7 +8,6 @@ export const getSearchMovies = (query) => dispatch => {
     axios
     .get(`https://api.themoviedb.org/3/search/movie?api_key=f45d181e4568e696ff8f68048d522dc8&language=en-US&query=${query}`)
     .then(res => {
-        console.log(res);
         dispatch({ type: GET_SEARCH_MOVIES_SUCCESS, payload: res.data.results })
     })
     .catch(err => {

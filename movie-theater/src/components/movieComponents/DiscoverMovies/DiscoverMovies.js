@@ -16,7 +16,6 @@ const DiscoverMovies = ({ getDiscoverMovies, getMovieConfig, discoverMovies, isF
         year: currYear,
         vote: 0
     })
-    console.log(discoverState);
 
     useEffect(() => {
         getDiscoverMovies("popularity.desc", 1, currYear, 0);

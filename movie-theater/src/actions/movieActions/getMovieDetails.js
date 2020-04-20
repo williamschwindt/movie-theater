@@ -8,7 +8,6 @@ export const getMovieDetails = (id) => dispatch => {
     axios
     .get(`https://api.themoviedb.org/3/movie/${id}?api_key=f45d181e4568e696ff8f68048d522dc8&language=en-US`)
     .then(res => {
-        console.log(res);
         dispatch({ type: GET_MOVIE_DETAILS_SUCCESS, payload: res.data });
     })
     .catch(err => {
