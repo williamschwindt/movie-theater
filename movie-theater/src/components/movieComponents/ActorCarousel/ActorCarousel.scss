@@ -11,28 +11,19 @@ div {
     
             .actor-box {
                 text-decoration: none;
-                cursor: pointer;
                 transition: .5s;
                 width: 23.4%;
                 height: 100%;
                 flex-shrink: 0;
                 margin: 2% 5%;
                 border-radius: 10px;
-                
 
                     img {
                         background-color: #000;
-                        transition: .3s;
                         width: 100%;
-                        opacity: .8;
                         border-radius: 10px;
-    
-                            &:hover {
-                                transition: .3s;
-                                opacity: 1;
-                                box-shadow: 0 0 5px;
-                            }
                     }
+
                     h3 {
                         color: #fff;
                         font-size: 1.8rem;

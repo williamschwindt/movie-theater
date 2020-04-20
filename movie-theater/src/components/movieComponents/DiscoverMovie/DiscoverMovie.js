@@ -5,6 +5,8 @@ import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
 import { getMovieCast } from '../../../actions/movieActions/getMovieCast';
 import { getMovieReview } from '../../../actions/movieActions/getMovieReview';
 import { ActorCarousel } from '../ActorCarousel/ActorCarousel';
+import NavBar from '../../navbar/NavBar';
+import { Footer } from '../../Footer/Footer';
 import axios from 'axios';
 
 const Movie = (props) => {
@@ -120,6 +122,7 @@ const Movie = (props) => {
 
         return(
             <div className="movie">
+                <NavBar/>
                 <div onClick={goBack} className="m-back"><ion-icon name="ios-arrow-back"/></div>
                 <div className="movie-background" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 9)), url(${config}w1280${details.backdrop_path})`}}></div> 
                 <div className="movie-details">
@@ -160,6 +163,7 @@ const Movie = (props) => {
                         )
                     })}
                 </div>
+                <Footer/>
             </div>
         )
     }
