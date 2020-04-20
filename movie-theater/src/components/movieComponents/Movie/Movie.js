@@ -29,9 +29,25 @@ const Movie = (props) => {
         document.querySelector('.summary-container').classList.toggle('view');
     }
 
+    const displayMessage = (message, color) => {
+        const messageTag = document.querySelector('#message');
+        messageTag.innerHTML = `${message}`;
+        messageTag.style.color = `${color}`;
+        messageTag.style.display = 'block';
+        setTimeout(() => {
+            messageTag.style.display = 'none';
+        }, 3000);
+    }
+
     const showInput = () => {
-        if(didVote === false) {
-            document.querySelector('#rate-movie-box').style.display = 'inline';
+        if(sessionStorage.getItem('session-id')) {
+            if(didVote === false) {
+                document.querySelector('#rate-movie-box').style.display = 'inline';
+            } else {
+                displayMessage('You Have Already Rated This Movie', 'rgb(255, 0, 0)');
+            }
+        } else {
+            displayMessage('You Must Be Loged In To Rate A Movie', 'rgb(255, 0, 0)');
         }
     }
 
@@ -51,38 +67,25 @@ const Movie = (props) => {
 
     let didVote = false;
     const rateMovie = () => {
-        if(didVote === false) {
-            if(sessionStorage.getItem("session-id")) {
-                if(checkNumber(rating)) {
-                    axios
-                    .post(`https://api.themoviedb.org/3/movie/${details.id}/rating?api_key=f45d181e4568e696ff8f68048d522dc8&session_id=${sessionStorage.getItem('session-id')}`, { "value": rating })
-                    .then(res => {
-                        console.log(res);
-                        document.querySelector('#error-message').innerHTML = 'success';
-                        document.querySelector('#error-message').style.color = 'rgb(30, 255, 0)';
-                        didVote = true;
-                        setTimeout(() => {
-                            document.querySelector('#rate-movie-box').style.display = 'none';
-                        }, 2000);
-                    })
-                    .catch(err => {
-                        document.querySelector('#error-message').innerHTML = 'something went wrong';
-                        document.querySelector('#error-message').style.color = 'rgb(30, 255, 0)';
-                        setTimeout(() => {
-                            document.querySelector('#rate-movie-box').style.display = 'none';
-                        }, 2000);
-                    })
-                } else {
-                    document.querySelector('#error-message').innerHTML = 'please chose a number between 1 and 10';
-                }
-            }
-            else {
-                document.querySelector('#error-message').innerHTML = 'you must be loged in to rate a mvoie';
+        if(checkNumber(rating)) {
+            axios
+            .post(`https://api.themoviedb.org/3/movie/${details.id}/rating?api_key=f45d181e4568e696ff8f68048d522dc8&session_id=${sessionStorage.getItem('session-id')}`, { "value": rating })
+            .then(res => {
+                console.log(res);
+                displayMessage(`You Gave ${details.title} ${rating} Stars`, 'rgb(30, 255, 0)');
                 didVote = true;
                 setTimeout(() => {
                     document.querySelector('#rate-movie-box').style.display = 'none';
                 }, 3000);
-            }
+            })
+            .catch(err => {
+                displayMessage('Something Went Wrong', 'rgb(255, 0, 0)');
+                setTimeout(() => {
+                    document.querySelector('#rate-movie-box').style.display = 'none';
+                }, 3000);
+            })
+        } else {
+            displayMessage('Please Chose A Number Between 1 And 10', 'rgb(255, 0, 0)');
         }
     }
 
@@ -95,6 +98,7 @@ const Movie = (props) => {
 
     if(props.isFetchingMovieDetails === 'fetched' && props.isFetchingMovieCast === 'fetched' && props.isFetchingMovieReviews === 'fetched' && config !== '' && props.errorMovieDetails === '') {
         let movieCast = cast.splice(0, 5);
+        let movieGenres = details.genres.splice(0, 3);
 
         return(
             <div className="movie">
@@ -105,7 +109,7 @@ const Movie = (props) => {
                     <div className="info-box">
                         <p className="rating">{details.vote_average}</p>
                         <div className="genres">
-                            {details.genres.map(genre => {
+                            {movieGenres.map(genre => {
                                 return (
                                     <p key={genre.id}>{genre.name}</p>
                                 )
@@ -118,8 +122,8 @@ const Movie = (props) => {
                     <div id="rate-movie-box">
                         <input onChange={changeRating} placeholder="10" type="number" min="1" max="10"/>
                         <button onClick={rateMovie}>Submit</button>
-                        <p id="error-message"></p>
                     </div>
+                    <p id="message"></p>
                 </div>
                 <div className="summary-container">
                     <p>{details.overview}</p>

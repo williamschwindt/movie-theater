@@ -28,9 +28,6 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
         })
     }, [token])
 
-    console.log(sessionStorage.getItem("token"));
-    console.log(sessionStorage);
-
     useEffect(() => {
         getTrendingMovies();
         getMovieConfig();
