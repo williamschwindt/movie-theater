@@ -119,6 +119,7 @@ const Movie = (props) => {
     if(props.isFetchingMovieDetails === 'fetched' && props.isFetchingMovieCast === 'fetched' && props.isFetchingMovieReviews === 'fetched' && config !== '' && props.errorMovieDetails === '') {
         let movieCast = cast.splice(0, 5);
         let movieGenres = details.genres.splice(0, 3);
+        let movieReviews = reviews.splice(0, 3);
 
         return(
             <div className="movie">
@@ -151,18 +152,20 @@ const Movie = (props) => {
                 </div>
                 <h2>Cast</h2>
                 <ActorCarousel config={config} movieCast={movieCast}/>
-                <div className="reviews">
-                    <h2>Reviews</h2>
-                    {reviews.map(review => {
-                        return (
-                            <div key={review.id} className="review">
-                                <h3>{review.author}</h3>
-                                <p>{shortendText(review.content, 400)}</p>
-                                <a href={review.url}>See Full Review</a>
-                            </div>
-                        )
-                    })}
-                </div>
+                {movieReviews.length > 0 &&
+                    <div className="reviews">
+                        <h2>Reviews</h2>
+                        {movieReviews.map(review => {
+                            return (
+                                <div key={review.id} className="review">
+                                    <h3>{review.author}</h3>
+                                    <p>{shortendText(review.content, 400)}</p>
+                                    <a href={review.url}>See Full Review</a>
+                                </div>
+                            )
+                        })}
+                    </div>
+                }
                 <Footer/>
             </div>
         )
