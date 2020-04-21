@@ -19,9 +19,8 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
     const token = sessionStorage.getItem("token");
     useEffect(() => {
         axios
-        .post(`https://api.themoviedb.org/3/authentication/session/new?api_key=f45d181e4568e696ff8f68048d522dc8`, { "request_token": `${token}` })
+        .post(`https://api.themoviedb.org/3/authentication/session/new?api_key=${process.env.REACT_APP_KEY}`, { "request_token": `${token}` })
         .then(res => {
-            console.log(res.data);
             sessionStorage.setItem("session-id", res.data.session_id);
         })
         .catch(err => {

@@ -1,5 +1,6 @@
 .movie {
     background-color: rgb(21, 22, 63);
+    
     .m-back {
         position: absolute;
         top: 15vh;
@@ -59,7 +60,6 @@
         }
         
         .view-summary {
-            // transform: rotate(270deg);
             cursor: pointer;
             font-size: 2rem;
             height: 50%;
@@ -86,8 +86,6 @@
         }
 
         #rate-movie-box {
-            // background-color: rgb(77, 77, 77);
-            // padding: 15px;
             display: none;
             margin-left: 20px;
 

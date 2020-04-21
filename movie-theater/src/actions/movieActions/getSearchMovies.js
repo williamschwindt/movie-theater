@@ -6,7 +6,7 @@ export const getSearchMovies = (query) => dispatch => {
     dispatch({ type: GET_SEARCH_MOVIES_START })
 
     axios
-    .get(`https://api.themoviedb.org/3/search/movie?api_key=f45d181e4568e696ff8f68048d522dc8&language=en-US&query=${query}`)
+    .get(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_KEY}&language=en-US&query=${query}`)
     .then(res => {
         dispatch({ type: GET_SEARCH_MOVIES_SUCCESS, payload: res.data.results })
     })

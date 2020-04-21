@@ -15,7 +15,7 @@ export const Footer = () => {
                 </div>
                 <div className="copyright">
                     <h2>Copyright &copy;2020</h2>
-                    <p>William Schwindt</p>
+                    <a href="https://williamschwindt.netlify.app/">William Schwindt</a>
                 </div>
             </div>
             <div className="moviedb-logo">

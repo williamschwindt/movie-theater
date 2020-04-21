@@ -14,7 +14,7 @@ const Login = ({ getRequestToken, token }) => {
             <NavBar/>
             <div className="TMDB-login">
                 <h1>Login With Your TMDB Accoout</h1>
-                <a href={`https://www.themoviedb.org/authenticate/${token}?redirect=https://www.theflimhouse.now.sh/approved`} rel="noopener noreferrer" target='_blank'>Login</a>
+                <a href={`https://www.themoviedb.org/authenticate/${token}?redirect=https://www.thefilmhouse.now.sh/approved`} rel="noopener noreferrer" target='_blank'>Login</a>
                 <a href="/">Back to browse</a>
             </div>
         </div>

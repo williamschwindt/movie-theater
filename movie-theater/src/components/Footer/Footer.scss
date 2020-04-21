@@ -40,12 +40,21 @@
             .copyright {
                 font-weight: 300;
                     h2 {
+                        text-align: left;
                         font-size: 1.8rem;
                         margin-bottom: 5px;
                     }
 
-                    p {
+                    a {
+                        transition: .3s;
                         font-size: 1.8rem;
+                        color: #fff;
+                        text-decoration: none;
+
+                        &:hover {
+                            transition: .3s;
+                            color: rgb(48, 62, 255);
+                        }
                     }
             }
     }

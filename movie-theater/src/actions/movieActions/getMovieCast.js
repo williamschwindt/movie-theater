@@ -6,7 +6,7 @@ export const getMovieCast = (id) => dispatch => {
     dispatch({ type: GET_MOVIE_CAST_START });
 
     axios
-    .get(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=f45d181e4568e696ff8f68048d522dc8`)
+    .get(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.REACT_APP_KEY}`)
     .then(res => {
         dispatch({ type: GET_MOVIE_CAST_SUCCESS, payload: res.data.cast });
     })

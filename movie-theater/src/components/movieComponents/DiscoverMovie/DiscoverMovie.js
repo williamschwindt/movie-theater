@@ -31,7 +31,7 @@ const Movie = (props) => {
     const token = sessionStorage.getItem("token");
     useEffect(() => {
         axios
-        .post(`https://api.themoviedb.org/3/authentication/session/new?api_key=f45d181e4568e696ff8f68048d522dc8`, { "request_token": `${token}` })
+        .post(`https://api.themoviedb.org/3/authentication/session/new?api_key=${process.env.REACT_APP_KEY}`, { "request_token": `${token}` })
         .then(res => {
             console.log(res.data);
             sessionStorage.setItem("session-id", res.data.session_id);
@@ -85,7 +85,7 @@ const Movie = (props) => {
     const rateMovie = () => {
         if(checkNumber(rating)) {
             axios
-            .post(`https://api.themoviedb.org/3/movie/${details.id}/rating?api_key=f45d181e4568e696ff8f68048d522dc8&session_id=${sessionStorage.getItem('session-id')}`, { "value": rating })
+            .post(`https://api.themoviedb.org/3/movie/${details.id}/rating?api_key=${process.env.REACT_APP_KEY}&session_id=${sessionStorage.getItem('session-id')}`, { "value": rating })
             .then(res => {
                 console.log(res);
                 displayMessage(`You Gave ${details.title} ${rating} Stars`, 'rgb(30, 255, 0)');
