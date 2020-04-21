@@ -18,14 +18,16 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
     //session id
     const token = sessionStorage.getItem("token");
     useEffect(() => {
-        axios
-        .post(`https://api.themoviedb.org/3/authentication/session/new?api_key=${process.env.REACT_APP_KEY}`, { "request_token": `${token}` })
-        .then(res => {
-            sessionStorage.setItem("session-id", res.data.session_id);
-        })
-        .catch(err => {
-            console.log('not logged in');
-        })
+        if(token && !sessionStorage.getItem("session-id")) {
+            axios
+            .post(`https://api.themoviedb.org/3/authentication/session/new?api_key=${process.env.REACT_APP_KEY}`, { "request_token": `${token}` })
+            .then(res => {
+                sessionStorage.setItem("session-id", res.data.session_id);
+            })
+            .catch(err => {
+                console.log('not logged in');
+            })
+        }
     }, [token])
 
     useEffect(() => {
