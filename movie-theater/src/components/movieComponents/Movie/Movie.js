@@ -149,7 +149,7 @@ const Movie = (props) => {
                 <h2>Cast</h2>
                 {movieCast.length > 0 ? 
                     <ActorCarousel config={config} movieCast={movieCast}/> : 
-                    <h3>There Is No Cast For This Movie</h3>
+                    <h3 id="no-cast">There Is No Cast For This Movie</h3>
                 }
                 {movieReviews.length > 0 &&
                     <div className="reviews">
