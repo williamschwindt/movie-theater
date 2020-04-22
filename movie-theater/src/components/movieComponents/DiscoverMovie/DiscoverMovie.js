@@ -150,7 +150,7 @@ const Movie = (props) => {
                 <div className="summary-container">
                     <p>{shortendText(details.overview, 300)}</p>
                 </div>
-                <h2>Cast</h2>
+                <h2 id="cast-title">Cast</h2>
                 {movieCast.length > 0 ? 
                     <ActorCarousel config={config} movieCast={movieCast}/> : 
                     <h3 id="no-cast">There Is No Cast For This Movie</h3>
