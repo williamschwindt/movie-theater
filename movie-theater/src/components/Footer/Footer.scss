@@ -39,6 +39,8 @@
 
             .copyright {
                 font-weight: 300;
+                display: flex;
+                flex-direction: column;
                     h2 {
                         text-align: left;
                         font-size: 1.8rem;
@@ -50,6 +52,7 @@
                         font-size: 1.8rem;
                         color: #fff;
                         text-decoration: none;
+                        margin-bottom: 25px;
 
                         &:hover {
                             transition: .3s;

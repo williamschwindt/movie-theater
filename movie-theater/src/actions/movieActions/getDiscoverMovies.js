@@ -11,7 +11,6 @@ export const getDiscoverMovies = (sortType, page, year, vote) => dispatch => {
         dispatch({ type: GET_DISCOVER_MOVIES_SUCCESS, payload: res.data.results })
     })
     .catch(err => {
-        console.log(err);
         dispatch({ type: GET_DISCOVER_MOVIES_FAILURE })
     })
 }

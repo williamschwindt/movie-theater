@@ -52,6 +52,7 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
     }
 
     const nextSlide = () => {
+        clearInterval(intervalFunc);
         const slides = document.querySelectorAll('.trending-movie');
         const current = document.querySelector('.trending-movie.current');
 
@@ -61,9 +62,11 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
         } else {
             slides[0].classList.add('current');
         }
+        intervalFunc = setInterval(nextSlide, intervalTime);
     }
 
     const prevSlide = () => {
+        clearInterval(intervalFunc);
         const slides = document.querySelectorAll('.trending-movie');
 
         const current = document.querySelector('.current');
@@ -73,6 +76,7 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
         } else {
             slides[slides.length - 1].classList.add('current');
         }
+        intervalFunc = setInterval(nextSlide, intervalTime);
     }
 
     if(auto === true) {

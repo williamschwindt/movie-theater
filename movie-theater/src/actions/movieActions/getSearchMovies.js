@@ -11,7 +11,6 @@ export const getSearchMovies = (query) => dispatch => {
         dispatch({ type: GET_SEARCH_MOVIES_SUCCESS, payload: res.data.results })
     })
     .catch(err => {
-        console.log(err);
         dispatch({ type: GET_SEARCH_MOVIES_FAILURE })
     })
 }

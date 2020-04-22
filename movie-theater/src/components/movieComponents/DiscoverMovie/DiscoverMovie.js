@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { getMovieDetails } from '../../../actions/movieActions/getMovieDetails';
 import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
@@ -77,9 +77,9 @@ const Movie = (props) => {
         }
     }
 
-    let rating;
+    const [rating, setRating] = useState();
     const changeRating = (e) => {
-        rating = e.target.value
+        setRating(e.target.value);
     }
 
     let didVote = false;
@@ -88,7 +88,6 @@ const Movie = (props) => {
             axios
             .post(`https://api.themoviedb.org/3/movie/${details.id}/rating?api_key=${process.env.REACT_APP_KEY}&session_id=${sessionStorage.getItem('session-id')}`, { "value": rating })
             .then(res => {
-                console.log(res);
                 displayMessage(`You Gave ${details.title} ${rating} Stars`, 'rgb(30, 255, 0)');
                 didVote = true;
                 setTimeout(() => {
@@ -118,9 +117,9 @@ const Movie = (props) => {
     }
 
     if(props.isFetchingMovieDetails === 'fetched' && props.isFetchingMovieCast === 'fetched' && props.isFetchingMovieReviews === 'fetched' && config !== '' && props.errorMovieDetails === '') {
-        let movieCast = cast.splice(0, 5);
-        let movieGenres = details.genres.splice(0, 3);
-        let movieReviews = reviews.splice(0, 3);
+        let movieCast = cast.slice(0, 5);
+        let movieGenres = details.genres.slice(0, 3);
+        let movieReviews = reviews.slice(0, 3);
 
         return(
             <div className="movie">
@@ -149,10 +148,13 @@ const Movie = (props) => {
                     <p id="message"></p>
                 </div>
                 <div className="summary-container">
-                    <p>{shortendText(details.overview, 370)}</p>
+                    <p>{shortendText(details.overview, 300)}</p>
                 </div>
                 <h2>Cast</h2>
-                <ActorCarousel config={config} movieCast={movieCast}/>
+                {movieCast.length > 0 ? 
+                    <ActorCarousel config={config} movieCast={movieCast}/> : 
+                    <h3>There Is No Cast For This Movie</h3>
+                }
                 {movieReviews.length > 0 &&
                     <div className="reviews">
                         <h2>Reviews</h2>
