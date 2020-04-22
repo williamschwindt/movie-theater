@@ -153,7 +153,7 @@ const Movie = (props) => {
                 }
                 {movieReviews.length > 0 &&
                     <div className="reviews">
-                        <h2>Reviews</h2>
+                        <h2 id="reviews-title">Reviews</h2>
                         {movieReviews.map(review => {
                             return (
                                 <div key={review.id} className="review">
