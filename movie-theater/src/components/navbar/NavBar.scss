@@ -6,6 +6,10 @@
     justify-content: space-evenly;
     background-color: rgb(16, 21, 34);
 
+    @media (max-width: 500px) {
+        padding: 10px 10px;
+    }
+
         .logo {
             margin-right: auto;
             margin-left: 0;
@@ -15,20 +19,46 @@
                 h1 {
                     text-align: center;
                     margin-right: 10px;
+
+                    @media (max-width: 850px) {
+                        font-size: 1.8rem;
+                    }
+
+                    @media (max-width: 500px) {
+                        font-size: 1.6rem;
+                    }
+                }
+
+                ion-icon {
+                    @media (max-width: 500px) {
+                        font-size: 1.6rem;
+                    }
                 }
         }
 
         input {
-            margin-left: 60px;
+            margin-left: auto;
+            // margin-top: auto;
+            // margin-bottom: auto;
             outline: none;
             padding-left: 5px;
             border: none;
             font-size: 2rem;
             font-weight: 300;
-            // border-radius: 5px;
-            // height: 30px;
-            // margin-top: auto;
-            // margin-bottom: auto;
+
+            @media (max-width: 850px) {
+                font-size: 1.4rem;
+            }
+
+            @media (max-width: 650px) {
+                margin-left: 20px;
+            }
+
+            @media (max-width: 500px) {
+                width: 80px;
+                height: 50%;
+                margin-left: 10px;
+            }
         }
 
         .search-btn {
@@ -38,18 +68,41 @@
             border-left: 1px solid #000;
             outline: none;
             margin-left: -10px;
+            margin-right: auto;
+            // margin-top: auto;
+            // margin-bottom: auto;
             cursor: pointer;
-            // border-radius: 10px;
+            // height: 26.5px;
+
+            @media (max-width: 500px) {
+                width: 20px;
+                height: 19px;
+            }
 
             ion-icon {
                 color: #fff;
                 font-size: 2.6rem;
+
+                @media (max-width: 850px) {
+                    font-size: 2rem;
+                }
+
+                @media (max-width: 500px) {
+                    font-size: 2rem;
+                }
             }
         }
 
         .nav-links {
+            display: flex;
+            justify-content: center;
             margin-left: auto;
             text-align: right;
+            line-height: 110%;
+
+            @media (max-width: 650px) {
+                display: none;
+            }
 
                 a {
                     transition: .3s;
@@ -63,6 +116,71 @@
                             transition: .3s;
                             color: rgb(48, 62, 255);
                         }
+
+                        @media (max-width: 850px) {
+                            font-size: 1.4rem;
+                        }
                 }
         }
+
+        .nav-links-hidden {
+            display: none;
+            margin-right: -10px;
+            
+
+            @media (max-width: 650px) {
+                display: flex;
+            }
+
+            @media (max-width: 500px) {
+                margin-right: 0px;
+            }
+
+            ion-icon {
+                margin: auto 0;
+                font-size: 2rem;
+            }
+        }
+
+        .nav-links-close {
+            display: none;
+            z-index: 3;
+            margin-right: -10px;
+
+            @media (max-width: 500px) {
+                margin-right: 0px;
+            }
+
+            ion-icon {
+                margin: auto 0;
+                font-size: 2rem;
+            }
+        }
+}
+
+.nav-links-shown {
+    transition: .3s;
+    display: none;
+    flex-direction: column;
+    background-color: rgb(16, 21, 34);
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    top: 1;
+    padding: 0 30px 0 10px;
+
+    a {
+        transition: .3s;
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.6rem;
+        font-weight: 300;
+        margin: 10px 0;
+
+        &:hover {
+            transition: .3s;
+            color: rgb(48, 62, 255);
+        }
+    }
+
 }
