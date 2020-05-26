@@ -36,59 +36,59 @@
                 }
         }
 
-        input {
+        .search-container {
             margin-left: auto;
-            // margin-top: auto;
-            // margin-bottom: auto;
-            outline: none;
-            padding-left: 5px;
-            border: none;
-            font-size: 2rem;
-            font-weight: 300;
-
-            @media (max-width: 850px) {
-                font-size: 1.4rem;
-            }
+            margin-right: auto;
+            display: flex;
+            overflow: hidden;
 
             @media (max-width: 650px) {
                 margin-left: 20px;
             }
 
             @media (max-width: 500px) {
-                width: 80px;
-                height: 50%;
                 margin-left: 10px;
-            }
-        }
-
-        .search-btn {
-            background-color: rgb(48, 62, 255);
-            padding: 0 7px;
-            border: none;
-            border-left: 1px solid #000;
-            outline: none;
-            margin-left: -10px;
-            margin-right: auto;
-            // margin-top: auto;
-            // margin-bottom: auto;
-            cursor: pointer;
-            // height: 26.5px;
-
-            @media (max-width: 500px) {
-                width: 20px;
-                height: 19px;
+                height: 20px;
             }
 
-            ion-icon {
-                color: #fff;
-                font-size: 2.6rem;
-
+            input {
+                outline: none;
+                padding-left: 5px;
+                border: none;
+                font-size: 2rem;
+                font-weight: 300;
+                height: 100%;
+    
                 @media (max-width: 850px) {
-                    font-size: 2rem;
+                    font-size: 1.4rem;
                 }
 
                 @media (max-width: 500px) {
-                    font-size: 2rem;
+                    width: 80px;
+                }
+            }
+
+            .search-btn {
+                background-color: rgb(48, 62, 255);
+                padding: 0 7px;
+                border: none;
+                border-left: 1px solid #000;
+                outline: none;
+                margin-left: -10px;
+                cursor: pointer;
+                height: 100%;
+    
+                ion-icon {
+                    color: #fff;
+                    font-size: 2.6rem;
+    
+                    @media (max-width: 850px) {
+                        font-size: 2rem;
+                    }
+    
+                    @media (max-width: 500px) {
+                        font-size: 2rem;
+                    }
                 }
             }
         }
