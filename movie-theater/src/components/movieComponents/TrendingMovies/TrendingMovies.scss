@@ -72,7 +72,7 @@
     .trending-movies {
         position: relative;
         overflow: hidden;
-        height: 94vh;
+        height: 96vh;
         width: 100vw;
     
             .trending-movie {
@@ -95,20 +95,48 @@
                         width: 600px;
                         padding: 35px;
 
+                        @media (max-width: 450px) {
+                            padding: 20px;
+                        }
+
                             #trending-tag {
                                 font-weight: 300;
                                 font-size: 2.5rem;
                                 opacity: .8;
                                 margin-bottom: 10px;
+
+                                @media (max-width: 800px) {
+                                    font-size: 2rem;
+                                }
+
+                                @media (max-width: 320px) {
+                                    font-size: 1.5rem;
+                                }
                             }
 
                             h1 {
                                 font-size: 4rem;
                                 margin-bottom: 10px;
+
+                                @media (max-width: 800px) {
+                                    font-size: 3.5rem;
+                                }
+
+                                @media (max-width: 320px) {
+                                    font-size: 3rem;
+                                }
                             }
 
                             p {
                                 font-size: 3rem;
+
+                                @media (max-width: 800px) {
+                                    font-size: 2.5rem;
+                                }
+
+                                @media (max-width: 320px) {
+                                    font-size: 2rem;
+                                }
                             }
                     }
             }
@@ -131,7 +159,7 @@
                 }
 
                 .trending-movie.current .content {
-                    transform: translateY(-300px);
+                    transform: translateY(-350px);
                 }
             }
 
