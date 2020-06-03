@@ -4,6 +4,11 @@
     padding: 60px 10%;
     margin-top: 40px;
 
+    @media (max-width: 500px) {
+        padding: 40px 5%;
+        margin-top: 30px;
+    }
+
     .footer-info {
 
             .footer-nav {
@@ -15,6 +20,10 @@
                         font-size: 2.5rem;
                         margin-bottom: 10px;
                         text-align: center;
+
+                        @media (max-width: 500px) {
+                            font-size: 2rem;
+                        }
                     }
 
                     .footer-links {
@@ -27,6 +36,10 @@
                                 text-decoration: none;
                                 color: #fff;
                                 margin: 0 5px;
+
+                                @media (max-width: 500px) {
+                                    font-size: 1.5rem;
+                                }
 
                                     &:hover {
                                         transition: .3s;
@@ -45,6 +58,10 @@
                         text-align: left;
                         font-size: 1.8rem;
                         margin-bottom: 5px;
+
+                        @media (max-width: 500px) {
+                            font-size: 1.5rem;
+                        }
                     }
 
                     a {
@@ -53,6 +70,10 @@
                         color: #fff;
                         text-decoration: none;
                         margin-bottom: 25px;
+
+                        @media (max-width: 500px) {
+                            font-size: 1.5rem;
+                        }
 
                         &:hover {
                             transition: .3s;
@@ -65,7 +86,7 @@
     .moviedb-logo {
         margin: auto 0 auto auto;
             img {
-                width: 150px;
+                width: 100px;
             }
     }
 }
