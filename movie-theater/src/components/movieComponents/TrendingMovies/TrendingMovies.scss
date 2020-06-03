@@ -62,11 +62,19 @@
     .t-back {
         top: 13%;
         left: 5%;
+
+        @media (max-width: 500px) {
+            top: 6%;
+        }
     }
 
     .t-next {
         top: 13%;
         right: 5%;
+
+        @media (max-width: 500px) {
+            top: 6%;
+        }
     }
 
     .trending-movies {
