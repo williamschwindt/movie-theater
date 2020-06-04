@@ -8,6 +8,12 @@ div {
         overflow-x: hidden;
         margin: 30px auto 80px auto;
         border-bottom: 1px solid rgb(48, 62, 255);
+
+        @media (max-width: 500px) {
+            flex-wrap: wrap;
+            width: 95%;
+            justify-content: center;
+        }
     
             .actor-box {
                 text-decoration: none;
@@ -17,6 +23,11 @@ div {
                 flex-shrink: 0;
                 margin: 2% 5%;
                 border-radius: 10px;
+
+                @media (max-width: 500px) {
+                    width: 29%;
+                    margin: 2% 2%;
+                }
 
                     img {
                         width: 100%;
@@ -41,7 +52,7 @@ div {
         padding: 13px 15px;
         border-radius: 50%;
         outline: none;
-
+ 
             &:hover {
                 background-color: #fff;
                 color: #333;
@@ -53,6 +64,10 @@ div {
         position: absolute;
         left: 20%;
         top: 35%;
+
+        @media (max-width: 500px) {
+            display: none;
+        }
     }
 
     .next-a {
@@ -60,6 +75,10 @@ div {
         position: absolute;
         right: 20%;
         top: 35%;
+
+        @media (max-width: 500px) {
+            display: none;
+        }
     }
 
 }
