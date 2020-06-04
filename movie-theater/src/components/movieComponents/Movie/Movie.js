@@ -114,7 +114,7 @@ const Movie = (props) => {
 
     if(props.isFetchingMovieDetails === 'fetched' && props.isFetchingMovieCast === 'fetched' && props.isFetchingMovieReviews === 'fetched' && config !== '' && props.errorMovieDetails === '') {
         let movieCast = cast.slice(0, 5);
-        let movieGenres = details.genres.slice(0, 3);
+        let movieGenres = details.genres.slice(0, 2);
         let movieReviews = reviews.slice(0, 3);
 
         return(
