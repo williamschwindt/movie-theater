@@ -50,7 +50,7 @@ const Movie = (props) => {
         const messageTag = document.querySelector('#message');
         messageTag.innerHTML = `${message}`;
         messageTag.style.color = `${color}`;
-        messageTag.style.display = 'block';
+        messageTag.style.display = 'flex';
         setTimeout(() => {
             messageTag.style.display = 'none';
         }, 3000);
@@ -141,7 +141,8 @@ const Movie = (props) => {
                         <input onChange={changeRating} placeholder="10" type="number" min="1" max="10"/>
                         <button onClick={rateMovie}>Submit</button>
                     </div>
-                    <p id="message"></p>
+                    <p id="message">You Must Be Logged In To Rate A Movie</p>
+                    <p className="small-screen-summary">Summary</p>
                 </div>
                 <div className="summary-container">
                     <p>{shortendText(details.overview, 300)}</p>

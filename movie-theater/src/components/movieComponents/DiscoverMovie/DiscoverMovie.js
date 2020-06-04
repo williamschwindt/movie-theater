@@ -146,6 +146,7 @@ const Movie = (props) => {
                         <button onClick={rateMovie}>Submit</button>
                     </div>
                     <p id="message"></p>
+                    <p className="small-screen-summary">Summary</p>
                 </div>
                 <div className="summary-container">
                     <p>{shortendText(details.overview, 300)}</p>
