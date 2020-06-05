@@ -60,10 +60,7 @@
     
             .rating {
                 color: rgb(255, 206, 72);
-
-                @media (max-width: 500px) {
-                    margin-right: 10px;
-                }
+                margin-right: 10px;
             }
     
             .genres {
@@ -92,6 +89,7 @@
             outline: none;
             border: none; 
             padding: 0;
+            margin-right: 15px;
 
             @media(max-width: 500px) {
                 display: none;
@@ -161,9 +159,15 @@
         }
 
         .small-screen-summary {
+            display: none;
             font-size: 1.8rem;
             position: absolute;
-            top: 28vh;
+            top: 34vh;
+            left: -2%;
+
+            @media (max-width: 500px) {
+                display: flex;
+            }
         }
     }
     .summary-container {
@@ -176,10 +180,10 @@
         display: flex;
 
         @media (max-width: 500px) {
-            top: 62vh;
-            right: 0;
-            left: 5%;
-            width: 95%;
+            top: 68vh;
+            right: 3%;
+            left: 3%;
+            width: 94%;
             text-align: left;
         }
         

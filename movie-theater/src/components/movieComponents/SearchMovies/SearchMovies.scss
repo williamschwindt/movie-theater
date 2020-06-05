@@ -4,5 +4,10 @@
         margin: 40px auto;
         font-size: 3rem;
         font-weight: 399;
+
+        @media (max-width: 500px) {
+            font-size: 2rem;
+            width: 90%;
+        }
     }
 }
