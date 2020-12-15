@@ -25,7 +25,7 @@ const SearchMovies = (props) => {
                 <div className="discover-movies">
                     {movies.map(movie => {
                         return(
-                            <Link to={`/discovermovie/${movie.id}`}key={movie.id} className="discover-movie">
+                            <Link to={`/movie/${movie.id}`}key={movie.id} className="discover-movie">
                                 <img src={`${config}w200${movie.poster_path}`} alt={movie.title} />
                             </Link>
                         )
