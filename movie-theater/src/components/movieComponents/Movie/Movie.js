@@ -4,6 +4,7 @@ import { getMovieDetails } from '../../../actions/movieActions/getMovieDetails';
 import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
 import { getMovieCast } from '../../../actions/movieActions/getMovieCast';
 import { getMovieReview } from '../../../actions/movieActions/getMovieReview';
+import { getSessionId } from '../../../actions/accoutActions/getSessionId';
 import { ActorCarousel } from '../ActorCarousel/ActorCarousel';
 import MovieNavBar from '../MovieNavBar/MovieNavBar';
 import { Footer } from '../../Footer/Footer';
@@ -19,6 +20,8 @@ const Movie = (props) => {
     const { details } = props;
     const { cast } = props;
     const { reviews } = props;
+    const { getSessionId } = props;
+    const { sessionId } = props;
 
     const [summary, setSummary] = useState(false)
     const [rateMovieMessage, setRateMovieMessage] = useState({
@@ -39,17 +42,8 @@ const Movie = (props) => {
     //session id
     const token = sessionStorage.getItem("token");
     useEffect(() => {
-        if(token && !sessionStorage.getItem("session-id")) {
-            axios
-            .post(`https://api.themoviedb.org/3/authentication/session/new?api_key=${process.env.REACT_APP_KEY}`, { "request_token": `${token}` })
-            .then(res => {
-                sessionStorage.setItem("session-id", res.data.session_id);
-            })
-            .catch(err => {
-                console.log('not logged in');
-            })
-        }
-    }, [token])
+        getSessionId(token);
+    }, [getSessionId])
 
     const viewSummary = () => {
         setSummary(!summary);
@@ -69,7 +63,7 @@ const Movie = (props) => {
     }
 
     const showInput = () => {
-        if(sessionStorage.getItem('session-id')) {
+        if(sessionId) {
             if(didVote === false) {
                 setRateMovieInput('inline')
             } else {
@@ -97,7 +91,7 @@ const Movie = (props) => {
     const rateMovie = () => {
         if(checkNumber(rating)) {
             axios
-            .post(`https://api.themoviedb.org/3/movie/${details.id}/rating?api_key=${process.env.REACT_APP_KEY}&session_id=${sessionStorage.getItem('session-id')}`, { "value": rating })
+            .post(`https://api.themoviedb.org/3/movie/${details.id}/rating?api_key=${process.env.REACT_APP_KEY}&session_id=${sessionId}`, { "value": rating })
             .then(res => {
                 displayMessage(`You Gave ${details.title} ${rating} Stars`, 'rgb(30, 255, 0)');
                 setRateMovieInput('none');
@@ -201,8 +195,10 @@ const mapStateToProps = state => {
         isFetchingMovieReviews: state.movieReviewReducer.isFetching,
         errorMovieReviews: state.movieReviewReducer.error,
 
-        config: state.movieConfigReducer.config
+        config: state.movieConfigReducer.config,
+
+        sessionId: state.sessionIdReducer.sessionId
     }
 }
 
-export default connect(mapStateToProps, {getMovieDetails, getMovieConfig, getMovieCast, getMovieReview})(Movie);
+export default connect(mapStateToProps, {getMovieDetails, getMovieConfig, getMovieCast, getMovieReview, getSessionId})(Movie);
