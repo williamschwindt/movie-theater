@@ -75,7 +75,7 @@ const DiscoverMovies = ({ getDiscoverMovies, getMovieConfig, discoverMovies, isF
                 <div className="discover-movies">
                     {discoverMovies.map(movie => {
                         return(
-                            <Link to={`/discovermovie/${movie.id}`}key={movie.id} className="discover-movie">
+                            <Link to={`/movie/${movie.id}`}key={movie.id} className="discover-movie">
                                 <img src={`${config}w200${movie.poster_path}`} alt={movie.title} />
                             </Link>
                         )
