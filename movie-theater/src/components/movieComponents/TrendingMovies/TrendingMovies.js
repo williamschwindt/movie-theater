@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getTrendingMovies } from '../../../actions/movieActions/getTrendingMovies';
@@ -40,6 +40,7 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
     let auto = false;
     let intervalTime;
     let intervalFunc;
+    const [trendingSlides, setTrendingSlides] = useState([true, false, false, false])
 
     if(isFetchingTrendingMovies === 'fetched' && isFetchingMovieGenres === 'fetched' && config) {
         auto = true;
@@ -53,30 +54,34 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
 
     const nextSlide = () => {
         clearInterval(intervalFunc);
-        const slides = document.querySelectorAll('.trending-movie');
-        const current = document.querySelector('.trending-movie.current');
 
-        current.classList.remove('current');
-        if(current.nextElementSibling) {
-            current.nextElementSibling.classList.add('current');
+        const slides = trendingSlides.slice(0);
+        const currentSlide = trendingSlides.indexOf(true);
+        if (currentSlide < 3) {
+            slides[currentSlide] = false
+            slides[currentSlide + 1] = true
+            setTrendingSlides(slides)
         } else {
-            slides[0].classList.add('current');
+            slides[currentSlide] = false
+            slides[0] = true
+            setTrendingSlides(slides)
         }
-        intervalFunc = setInterval(nextSlide, intervalTime);
     }
 
     const prevSlide = () => {
         clearInterval(intervalFunc);
-        const slides = document.querySelectorAll('.trending-movie');
 
-        const current = document.querySelector('.current');
-        current.classList.remove('current');
-        if(current.previousElementSibling) {
-            current.previousElementSibling.classList.add('current');
+        const slides = trendingSlides.slice(0);
+        const currentSlide = trendingSlides.indexOf(true);
+        if (currentSlide > 0) {
+            slides[currentSlide] = false
+            slides[currentSlide - 1] = true
+            setTrendingSlides(slides)
         } else {
-            slides[slides.length - 1].classList.add('current');
+            slides[currentSlide] = false
+            slides[3] = true
+            setTrendingSlides(slides)
         }
-        intervalFunc = setInterval(nextSlide, intervalTime);
     }
 
     if(auto === true) {
@@ -92,50 +97,23 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
     }
 
     if (isFetchingTrendingMovies === 'fetched' && isFetchingMovieGenres === 'fetched' && config) {
-        const movieConfig = config;
-        const movies = trendingMovies.slice(0,4);
-        let genres = [];
-
-        const movieGenreIDs = movies.map(movie => movie.genre_ids[0]);
-
-        for (let i = 0; i < movieGenreIDs.length; i++) {
-            genres.push(movieGenres.find(genre => genre.id === movieGenreIDs[i]));
-        }
-
         return(
             <div className="home-container">
                 <NavBar/>
                 <button className="t-back" onClick={prevSlide}><ion-icon name="ios-arrow-back"/></button>
                 <button className="t-next" onClick={nextSlide}><ion-icon name="ios-arrow-forward"/></button>
                 <div className="trending-movies">
-                    <Link onClick={stopSliding} to={`/movie/${movies[0].id}`} className="trending-movie current" key={movies[0].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[0].backdrop_path})`}}>
-                        <div className="content">
-                            <p id="trending-tag">Trending</p>
-                            <h1>{movies[0].title}</h1>
-                            <p>{genres[0].name}</p>
-                        </div>
-                    </Link>
-                    <Link onClick={stopSliding} to={`/movie/${movies[1].id}`} className="trending-movie" key={movies[1].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[1].backdrop_path})`}}>
-                        <div className="content">
-                            <p id="trending-tag">Trending</p>
-                            <h1>{movies[1].title}</h1>
-                            <p>{genres[1].name}</p>
-                        </div>
-                    </Link>
-                    <Link onClick={stopSliding} to={`/movie/${movies[2].id}`} className="trending-movie" key={movies[2].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[2].backdrop_path})`}}>
-                        <div className="content">
-                            <p id="trending-tag">Trending</p>
-                            <h1>{movies[2].title}</h1>
-                            <p>{genres[2].name}</p>
-                        </div>
-                    </Link>
-                    <Link onClick={stopSliding} to={`/movie/${movies[3].id}`} className="trending-movie" key={movies[3].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[3].backdrop_path})`}}>
-                        <div className="content">
-                            <p id="trending-tag">Trending</p>
-                            <h1>{movies[3].title}</h1>
-                            <p>{genres[3].name}</p>
-                        </div>
-                    </Link>
+                    {trendingMovies.map((movie, i) => {
+                        return (
+                            <Link onClick={stopSliding} to={`/movie/${movie.id}`} className={trendingSlides[i] ? "trending-movie current" : "trending-movie"} key={movie.id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${config}w1280${movie.backdrop_path})`}}>
+                                <div className="content">
+                                    <p id="trending-tag">Trending</p>
+                                    <h1>{movie.title}</h1>
+                                    <p>{movieGenres.find(genre => genre.id === movie.genre_ids[0]).name}</p>
+                                </div>
+                            </Link>
+                        )
+                    })}
                 </div>
 
                 <HomeMovies stopSliding={stopSliding}/>
