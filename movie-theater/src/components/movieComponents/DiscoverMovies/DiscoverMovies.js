@@ -38,7 +38,7 @@ const DiscoverMovies = ({ getDiscoverMovies, getMovieConfig, discoverMovies, isF
     }
 
     const changeHandler = (e) => {
-        let newTitle = ''
+        let newTitle = 'Popularity Descending'
         if (e.target.value === 'popularity.asc') {
             newTitle = 'Popularity Ascending'
         }
