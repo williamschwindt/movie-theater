@@ -41,7 +41,7 @@ export const MovieCarousel = (props) => {
             <div className="movies-row">
                 {props.movies.map(movie => {
                     return (
-                        <Link onClick={props.stopSliding} to={`/movie/${movie.id}`}  key={movie.id} className={props.class}>
+                        <Link to={`/movie/${movie.id}`}  key={movie.id} className={props.class}>
                             <img src={`${props.config}w1280${movie.poster_path}`} alt={movie.title}/>
                             <h2>{shortendText(movie.title, 40)}</h2>
                         </Link>

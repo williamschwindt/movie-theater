@@ -5,7 +5,6 @@ import { getTrendingMovies } from '../../../actions/movieActions/getTrendingMovi
 import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
 import { getMovieGenres } from '../../../actions/movieActions/getMovieGenres';
 import NavBar from '../../navbar/NavBar';
-import HomeMovies from '../HomeMovies/HomeMovies';
 import axios from 'axios';
 
 const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
@@ -14,6 +13,8 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
     movieGenres, isFetchingMovieGenres, errorMovieGenres
     }) => {
 
+    //image slider
+    const [trendingSlides, setTrendingSlides] = useState([true, false, false, false])
 
     //session id
     const token = sessionStorage.getItem("token");
@@ -36,25 +37,7 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
         getMovieGenres();
     },[getMovieConfig, getMovieGenres, getTrendingMovies])
 
-    //auto slide
-    let auto = false;
-    let intervalTime;
-    let intervalFunc;
-    const [trendingSlides, setTrendingSlides] = useState([true, false, false, false])
-
-    if(isFetchingTrendingMovies === 'fetched' && isFetchingMovieGenres === 'fetched' && config) {
-        auto = true;
-        intervalTime = 7000;
-    }
-
-    const stopSliding = () => {
-        auto = false;
-        clearInterval(intervalFunc);
-    }
-
     const nextSlide = () => {
-        clearInterval(intervalFunc);
-
         const slides = trendingSlides.slice(0);
         const currentSlide = trendingSlides.indexOf(true);
         if (currentSlide < 3) {
@@ -69,8 +52,6 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
     }
 
     const prevSlide = () => {
-        clearInterval(intervalFunc);
-
         const slides = trendingSlides.slice(0);
         const currentSlide = trendingSlides.indexOf(true);
         if (currentSlide > 0) {
@@ -84,9 +65,14 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
         }
     }
 
-    if(auto === true) {
-        intervalFunc = setInterval(nextSlide, intervalTime);
-    }
+    //auto slide
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            nextSlide()
+        }, 7000)
+
+        return () => clearInterval(intervalId)
+    }, [trendingSlides])
 
     if(errorTrendingMovies || errorMovieGenres) {
         return (
@@ -105,7 +91,7 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
                 <div className="trending-movies">
                     {trendingMovies.map((movie, i) => {
                         return (
-                            <Link onClick={stopSliding} to={`/movie/${movie.id}`} className={trendingSlides[i] ? "trending-movie current" : "trending-movie"} key={movie.id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${config}w1280${movie.backdrop_path})`}}>
+                            <Link to={`/movie/${movie.id}`} className={trendingSlides[i] ? "trending-movie current" : "trending-movie"} key={movie.id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${config}w1280${movie.backdrop_path})`}}>
                                 <div className="content">
                                     <p id="trending-tag">Trending</p>
                                     <h1>{movie.title}</h1>
@@ -115,8 +101,6 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
                         )
                     })}
                 </div>
-
-                <HomeMovies stopSliding={stopSliding}/>
             </div>
         )
     }

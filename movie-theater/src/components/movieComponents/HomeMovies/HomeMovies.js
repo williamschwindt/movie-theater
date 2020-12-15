@@ -24,11 +24,11 @@ const HomeMovies = ({ getNowPlaying, getMovieConfig, getUpcoming, getPopularMovi
         return(
             <div className="home-movies">
                 <h1>Now Playing</h1>
-                <MovieCarousel stopSliding={stopSliding} config={config} movies={nowPlaying} class={"now-playing-movies"}/>
+                <MovieCarousel config={config} movies={nowPlaying} class={"now-playing-movies"}/>
                 <h1>Popular</h1>
-                <MovieCarousel stopSliding={stopSliding} config={config} movies={popularMovies} class={"popular-movies"}/>
+                <MovieCarousel config={config} movies={popularMovies} class={"popular-movies"}/>
                 <h1>Upcoming</h1>
-                <MovieCarousel stopSliding={stopSliding} config={config} movies={upcoming} class={"upcoming-movies"}/>
+                <MovieCarousel config={config} movies={upcoming} class={"upcoming-movies"}/>
             </div>
         )
     }
