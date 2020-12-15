@@ -14,7 +14,8 @@ const DiscoverMovies = ({ getDiscoverMovies, getMovieConfig, discoverMovies, isF
     const [discoverState, setDiscoverState] = useState({
         filter: "popularity.desc",
         year: currYear,
-        vote: 0
+        vote: 0,
+        title: 'Popularity Descending'
     })
 
     useEffect(() => {
@@ -37,9 +38,29 @@ const DiscoverMovies = ({ getDiscoverMovies, getMovieConfig, discoverMovies, isF
     }
 
     const changeHandler = (e) => {
+        let newTitle = ''
+        if (e.target.value === 'popularity.asc') {
+            newTitle = 'Popularity Ascending'
+        }
+        else if (e.target.value === 'popularity.desc') {
+            newTitle = 'Popularity Descending'
+        }
+        else if (e.target.value === 'revenue.asc') {
+            newTitle = 'Revenue Ascending'
+        }
+        else if (e.target.value === 'revenue.desc') {
+            newTitle = 'Revenue Descending'
+        }
+        else if (e.target.value === 'vote_average.asc') {
+            newTitle = 'Vote Average Ascending'
+        }
+        else if (e.target.value === 'vote_average.desc') {
+            newTitle = 'Vote Average Descending'
+        }
         setDiscoverState({
             ...discoverState,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
+            title: newTitle
         })
     }
 
@@ -58,7 +79,7 @@ const DiscoverMovies = ({ getDiscoverMovies, getMovieConfig, discoverMovies, isF
                 <form className="search-filter-bar">
                     <div>
                         <select name="filter" onChange={changeHandler}>
-                            <option value="" disabled selected>filters</option>
+                            <option value="" disabled selected>{discoverState.title}</option>
                             <option value="popularity.asc">Popularity Ascending</option>
                             <option value="popularity.desc">Popularity Descending</option>
                             <option value="revenue.asc">Revenue Ascending</option>
@@ -82,8 +103,8 @@ const DiscoverMovies = ({ getDiscoverMovies, getMovieConfig, discoverMovies, isF
                     })}
                 </div>
                 <div className="discover-btns">
-                    <button id="discover-next" onClick={previousPage}><ion-icon name="ios-arrow-back"/> <span>prev</span></button>
-                    <button id="discover-prev" onClick={nextPage}><span>next</span><ion-icon name="ios-arrow-forward"/></button>
+                    <button id="discover-next" onClick={previousPage}><ion-icon name="ios-arrow-back"/></button>
+                    <button id="discover-prev" onClick={nextPage}><ion-icon name="ios-arrow-forward"/></button>
                 </div>
                 <Footer />
             </div>
