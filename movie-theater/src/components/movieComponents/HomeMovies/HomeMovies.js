@@ -10,8 +10,7 @@ const HomeMovies = ({ getNowPlaying, getMovieConfig, getUpcoming, getPopularMovi
     nowPlaying, isFetchingNowPlaying, errorNowPlaying, 
     upcoming, isFetchingUpcoming, errorUpcoming,
     popularMovies, isFetchingPopularMovies, errorPopularMovies,
-    config,
-    stopSliding }) => {
+    config }) => {
 
     useEffect(() => {
         getNowPlaying();
