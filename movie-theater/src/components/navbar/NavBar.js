@@ -1,23 +1,43 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const NavBar = () => {
     const [query, setQuery] = useState("");
+    const [navLinks, setNavLinks] = useState({
+        hidden: 'none',
+        shown: 'none',
+        close: 'none'
+    })
+    const windowWidth = window.innerWidth;
+
+    useEffect(() => {
+        if (windowWidth <= 500) {
+            setNavLinks({
+                hidden: 'flex',
+                shown: 'none',
+                close: 'none'
+            })
+        }
+    }, [windowWidth])
 
     const changeHandler = (e) => {
         setQuery(e.target.value);
     }
 
     const showNav = () => {
-        document.querySelector('.nav-links-hidden').style.display = 'none';
-        document.querySelector('.nav-links-close').style.display = 'flex';
-        document.querySelector('.nav-links-shown').style.display = 'flex';
+        setNavLinks({
+            hidden: 'none',
+            shown: 'flex',
+            close: 'flex'
+        })
     }
 
     const closeNav = () => {
-        document.querySelector('.nav-links-hidden').style.display = 'flex';
-        document.querySelector('.nav-links-close').style.display = 'none';
-        document.querySelector('.nav-links-shown').style.display = 'none';
+        setNavLinks({
+            hidden: 'flex',
+            shown: 'none',
+            close: 'none'
+        })
     }
 
 
@@ -32,22 +52,22 @@ const NavBar = () => {
                     <input onChange={changeHandler} placeholder="search" />
                     <Link className ="search-btn" to={`/search/${query}`}><ion-icon name="ios-search"/></Link>
                 </div>
-                <div className="nav-links-hidden">
+                <div className="nav-links-hidden" style={{ display: navLinks.hidden }}>
                     <ion-icon onClick={showNav} className="hidden-icon" name="ios-menu" />
                 </div>
-                <div className="nav-links-close">
+                <div className="nav-links-close" style={{ display: navLinks.close }}>
                     <ion-icon onClick={closeNav} className="close-icon" name="ios-close" />
                 </div>
                 <div className="nav-links">
-                    <Link href="/">Home</Link>
-                    <Link href="/discover">Discover</Link>
-                    <Link href="/login">Login</Link>
+                    <Link to="/">Home</Link>
+                    <Link to="/discover">Discover</Link>
+                    <Link to="/login">Login</Link>
                 </div>
             </nav>
-            <div className="nav-links-shown">
-                <Link href="/">Home</Link>
-                <Link href="/discover">Discover</Link>
-                <Link href="/login">Login</Link>
+            <div className="nav-links-shown" style={{ display: navLinks.shown }}>
+                <Link to="/">Home</Link>
+                <Link to="/discover">Discover</Link>
+                <Link to="/login">Login</Link>
             </div>
         </div>
     )
