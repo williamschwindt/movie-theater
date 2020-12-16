@@ -43,7 +43,7 @@ const Movie = (props) => {
     const token = sessionStorage.getItem("token");
     useEffect(() => {
         getSessionId(token);
-    }, [getSessionId])
+    }, [getSessionId, token])
 
     const viewSummary = () => {
         setSummary(!summary);
