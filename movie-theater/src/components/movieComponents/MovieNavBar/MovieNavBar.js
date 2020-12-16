@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const MovieNavBar = () => {
     return (
         <div className="movie-nav-links">
-            <a href="/">Home</a>
-            <a href="/discover">Discover</a>
-            <a href="/login">Login</a>
+            <Link to="/">Home</Link>
+            <Link to="/discover">Discover</Link>
+            <Link to="/login">Login</Link>
         </div>
     )
 }

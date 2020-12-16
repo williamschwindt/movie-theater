@@ -113,13 +113,13 @@ const DiscoverMovies = ({ getDiscoverMovies, getMovieConfig, discoverMovies, isF
 
     if(isFetchingDiscoverMovies === true) {
         return (
-            <div className="discover">
-                <div className="lds-ring">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
+            <div style={{ height: '94vh' }}>
+            <div id="discover-loading">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
             </div>
         )
     }
