@@ -4,6 +4,7 @@ import { getMovieDetails } from '../../../actions/movieActions/getMovieDetails';
 import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
 import { getMovieCast } from '../../../actions/movieActions/getMovieCast';
 import { getMovieReview } from '../../../actions/movieActions/getMovieReview';
+import { getSessionId } from '../../../actions/accoutActions/getSessionId';
 import { ActorCarousel } from '../ActorCarousel/ActorCarousel';
 import MovieNavBar from '../MovieNavBar/MovieNavBar';
 import { Footer } from '../../Footer/Footer';
@@ -19,6 +20,17 @@ const Movie = (props) => {
     const { details } = props;
     const { cast } = props;
     const { reviews } = props;
+    const { getSessionId } = props;
+    const { sessionId } = props;
+
+    const [summary, setSummary] = useState(false)
+    const [rateMovieMessage, setRateMovieMessage] = useState({
+        message: '',
+        color: '',
+        display: 'none',
+    })
+    const [rateMovieInput, setRateMovieInput] = useState('none')
+    const [didVote, setDidVote] = useState(false)
 
     useEffect(() => {
         getMovieDetails(id);
@@ -30,36 +42,30 @@ const Movie = (props) => {
     //session id
     const token = sessionStorage.getItem("token");
     useEffect(() => {
-        if(token && !sessionStorage.getItem("session-id")) {
-            axios
-            .post(`https://api.themoviedb.org/3/authentication/session/new?api_key=${process.env.REACT_APP_KEY}`, { "request_token": `${token}` })
-            .then(res => {
-                sessionStorage.setItem("session-id", res.data.session_id);
-            })
-            .catch(err => {
-                console.log('not logged in');
-            })
-        }
-    }, [token])
+        getSessionId(token);
+    }, [getSessionId])
 
     const viewSummary = () => {
-        document.querySelector('.summary-container').classList.toggle('view');
+        setSummary(!summary);
     }
 
     const displayMessage = (message, color) => {
-        const messageTag = document.querySelector('#message');
-        messageTag.innerHTML = `${message}`;
-        messageTag.style.color = `${color}`;
-        messageTag.style.display = 'flex';
+        setRateMovieMessage({
+            message: message,
+            color: color,
+            display: 'flex',
+        })
         setTimeout(() => {
-            messageTag.style.display = 'none';
+            setRateMovieMessage({
+                visible: 'none',
+            })
         }, 3000);
     }
 
     const showInput = () => {
-        if(sessionStorage.getItem('session-id')) {
+        if(sessionId) {
             if(didVote === false) {
-                document.querySelector('#rate-movie-box').style.display = 'inline';
+                setRateMovieInput('inline')
             } else {
                 displayMessage('You Have Already Rated This Movie', 'rgb(255, 0, 0)');
             }
@@ -82,23 +88,18 @@ const Movie = (props) => {
         setRating(e.target.value);
     }
 
-    let didVote = false;
     const rateMovie = () => {
         if(checkNumber(rating)) {
             axios
-            .post(`https://api.themoviedb.org/3/movie/${details.id}/rating?api_key=${process.env.REACT_APP_KEY}&session_id=${sessionStorage.getItem('session-id')}`, { "value": rating })
+            .post(`https://api.themoviedb.org/3/movie/${details.id}/rating?api_key=${process.env.REACT_APP_KEY}&session_id=${sessionId}`, { "value": rating })
             .then(res => {
                 displayMessage(`You Gave ${details.title} ${rating} Stars`, 'rgb(30, 255, 0)');
-                didVote = true;
-                setTimeout(() => {
-                    document.querySelector('#rate-movie-box').style.display = 'none';
-                }, 3000);
+                setRateMovieInput('none');
+                setDidVote(true);
             })
             .catch(err => {
+                setRateMovieInput('none');
                 displayMessage('Something Went Wrong', 'rgb(255, 0, 0)');
-                setTimeout(() => {
-                    document.querySelector('#rate-movie-box').style.display = 'none';
-                }, 3000);
             })
         } else {
             displayMessage('Please Chose A Number Between 1 And 10', 'rgb(255, 0, 0)');
@@ -112,6 +113,10 @@ const Movie = (props) => {
         return text;
     }
 
+    const goBack = () => {
+        props.history.goBack();
+    }
+
     if(props.isFetchingMovieDetails === 'fetched' && props.isFetchingMovieCast === 'fetched' && props.isFetchingMovieReviews === 'fetched' && config !== '' && props.errorMovieDetails === '') {
         let movieCast = cast.slice(0, 5);
         let movieGenres = details.genres.slice(0, 2);
@@ -120,7 +125,7 @@ const Movie = (props) => {
         return(
             <div className="movie">
                 <MovieNavBar/>
-                <a href="/" className="m-back"><ion-icon name="ios-arrow-back"/></a>
+                <div onClick={goBack} className="m-back" style={{ cursor: 'pointer' }}><ion-icon name="ios-arrow-back"/></div>
                 <div className="movie-background" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 9)), url(${config}w1280${details.backdrop_path})`}}></div> 
                 <div className="movie-details">
                     <h1>{details.title}</h1>
@@ -137,14 +142,14 @@ const Movie = (props) => {
                     </div>
                     <button onClick={viewSummary} className="view-summary"><p>Summary</p></button>
                     <button onClick={showInput} className="rate-movie">Rate this movie</button>
-                    <div id="rate-movie-box">
+                    <div id="rate-movie-box" style={{ display: rateMovieInput }}>
                         <input onChange={changeRating} placeholder="10" type="number" min="1" max="10"/>
                         <button onClick={rateMovie}>Submit</button>
                     </div>
-                    <p id="message">You Must Be Logged In To Rate A Movie</p>
+                    <p id="message"style={{ display: rateMovieMessage.display, color:rateMovieMessage.color }}>{rateMovieMessage.message}</p>
                     <p className="small-screen-summary">Summary</p>
                 </div>
-                <div className="summary-container">
+                <div className={summary ? "summary-container view" : "summary-container"}>
                     <p>{shortendText(details.overview, 300)}</p>
                 </div>
                 <h2 id="cast-title">Cast</h2>
@@ -171,8 +176,15 @@ const Movie = (props) => {
         )
     }
 
-    return(
-        <h1>waiting</h1>
+    return (
+        <div style={{height: '94vh'}}>
+            <div className="lds-ring">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
     )
 }
 
@@ -190,8 +202,10 @@ const mapStateToProps = state => {
         isFetchingMovieReviews: state.movieReviewReducer.isFetching,
         errorMovieReviews: state.movieReviewReducer.error,
 
-        config: state.movieConfigReducer.config
+        config: state.movieConfigReducer.config,
+
+        sessionId: state.sessionIdReducer.sessionId
     }
 }
 
-export default connect(mapStateToProps, {getMovieDetails, getMovieConfig, getMovieCast, getMovieReview})(Movie);
+export default connect(mapStateToProps, {getMovieDetails, getMovieConfig, getMovieCast, getMovieReview, getSessionId})(Movie);

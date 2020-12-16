@@ -1,31 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export const ActorCarousel = (props) => {
 
-    const slide = (amount) => {
-        const row = document.querySelectorAll('.actor-box');
-        for(let i = 0; i < row.length; i++) {
-            row[i].style.transform = `translateX(${amount}%)`;
-        }
-    }
+    const [slideAmount, setSlideAmount] = useState(0);
 
-    let transform = 0;
     const next = () => {
-        if(transform > -284.8) {
-            transform -= 142.4;
+        if(slideAmount > -284.8) {
+            setSlideAmount(slideAmount - 142.4);
         } else {
-            transform = 0;
+            setSlideAmount(0)
         }
-        slide(transform);
     }
 
     const prev = () => {
-        if(transform < .1 && transform > -.1) {
-            transform = -284.8;
+        if(slideAmount < .1 && slideAmount > -.1) {
+            setSlideAmount(-284.8);
         } else {
-            transform += 142.4;
+            setSlideAmount(slideAmount + 142.4);
         }
-        slide(transform);
     }
 
     return (
@@ -33,7 +25,7 @@ export const ActorCarousel = (props) => {
             <div className="cast">
                 {props.movieCast.map(actor => {
                     return (
-                        <div key={actor.cast_id} className="actor-box">
+                        <div key={actor.cast_id} className="actor-box" style={{ transform: `translateX(${slideAmount}%)` }}>
                             <img src={`${props.config}w200${actor.profile_path}`} alt='actor' />
                             <h3>{actor.name}</h3>
                         </div>

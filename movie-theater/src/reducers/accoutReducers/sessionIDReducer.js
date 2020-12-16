@@ -1,12 +1,12 @@
 import { GET_SESSIONID_START, GET_SESSIONID_SUCCESS, GET_SESSIONID_FAILURE } from '../../actions/types';
 
 const initialState = {
-    sessionID: '',
+    sessionId: '',
     isFetching: false,
     error: ''
 }
 
-export const requestTokenReducer = (state = initialState, action) => {
+export const sessionIdReducer = (state = initialState, action) => {
     switch(action.type) {
         default :
             return state
@@ -18,7 +18,7 @@ export const requestTokenReducer = (state = initialState, action) => {
         case GET_SESSIONID_SUCCESS :
             return {
                 ...state,
-                token: action.payload,
+                sessionId: action.payload,
                 isFetching: 'fetched'
             }
         case GET_SESSIONID_FAILURE :

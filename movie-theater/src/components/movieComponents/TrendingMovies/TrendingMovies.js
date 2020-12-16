@@ -1,34 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getTrendingMovies } from '../../../actions/movieActions/getTrendingMovies';
 import { getMovieConfig } from '../../../actions/movieActions/getMovieConfig';
 import { getMovieGenres } from '../../../actions/movieActions/getMovieGenres';
 import NavBar from '../../navbar/NavBar';
-import HomeMovies from '../HomeMovies/HomeMovies';
-import axios from 'axios';
 
 const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
     trendingMovies, isFetchingTrendingMovies, errorTrendingMovies, 
     config,
-    movieGenres, isFetchingMovieGenres, errorMovieGenres
+    movieGenres, isFetchingMovieGenres, errorMovieGenres,
     }) => {
 
-
-    //session id
-    const token = sessionStorage.getItem("token");
-    useEffect(() => {
-        if(token && !sessionStorage.getItem("session-id")) {
-            axios
-            .post(`https://api.themoviedb.org/3/authentication/session/new?api_key=${process.env.REACT_APP_KEY}`, { "request_token": `${token}` })
-            .then(res => {
-                sessionStorage.setItem("session-id", res.data.session_id);
-            })
-            .catch(err => {
-                console.log('not logged in');
-            })
-        }
-    }, [token])
+    //image slider
+    const [trendingSlides, setTrendingSlides] = useState([true, false, false, false])
 
     useEffect(() => {
         getTrendingMovies();
@@ -36,52 +21,42 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
         getMovieGenres();
     },[getMovieConfig, getMovieGenres, getTrendingMovies])
 
-    //auto slide
-    let auto = false;
-    let intervalTime;
-    let intervalFunc;
-
-    if(isFetchingTrendingMovies === 'fetched' && isFetchingMovieGenres === 'fetched' && config) {
-        auto = true;
-        intervalTime = 7000;
-    }
-
-    const stopSliding = () => {
-        auto = false;
-        clearInterval(intervalFunc);
-    }
-
     const nextSlide = () => {
-        clearInterval(intervalFunc);
-        const slides = document.querySelectorAll('.trending-movie');
-        const current = document.querySelector('.trending-movie.current');
-
-        current.classList.remove('current');
-        if(current.nextElementSibling) {
-            current.nextElementSibling.classList.add('current');
+        const slides = trendingSlides.slice(0);
+        const currentSlide = trendingSlides.indexOf(true);
+        if (currentSlide < 3) {
+            slides[currentSlide] = false
+            slides[currentSlide + 1] = true
+            setTrendingSlides(slides)
         } else {
-            slides[0].classList.add('current');
+            slides[currentSlide] = false
+            slides[0] = true
+            setTrendingSlides(slides)
         }
-        intervalFunc = setInterval(nextSlide, intervalTime);
     }
 
     const prevSlide = () => {
-        clearInterval(intervalFunc);
-        const slides = document.querySelectorAll('.trending-movie');
-
-        const current = document.querySelector('.current');
-        current.classList.remove('current');
-        if(current.previousElementSibling) {
-            current.previousElementSibling.classList.add('current');
+        const slides = trendingSlides.slice(0);
+        const currentSlide = trendingSlides.indexOf(true);
+        if (currentSlide > 0) {
+            slides[currentSlide] = false
+            slides[currentSlide - 1] = true
+            setTrendingSlides(slides)
         } else {
-            slides[slides.length - 1].classList.add('current');
+            slides[currentSlide] = false
+            slides[3] = true
+            setTrendingSlides(slides)
         }
-        intervalFunc = setInterval(nextSlide, intervalTime);
     }
 
-    if(auto === true) {
-        intervalFunc = setInterval(nextSlide, intervalTime);
-    }
+    //auto slide
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            nextSlide()
+        }, 7000)
+
+        return () => clearInterval(intervalId)
+    }, [trendingSlides])
 
     if(errorTrendingMovies || errorMovieGenres) {
         return (
@@ -92,53 +67,24 @@ const TrendingMovies = ({ getTrendingMovies, getMovieConfig, getMovieGenres,
     }
 
     if (isFetchingTrendingMovies === 'fetched' && isFetchingMovieGenres === 'fetched' && config) {
-        const movieConfig = config;
-        const movies = trendingMovies.slice(0,4);
-        let genres = [];
-
-        const movieGenreIDs = movies.map(movie => movie.genre_ids[0]);
-
-        for (let i = 0; i < movieGenreIDs.length; i++) {
-            genres.push(movieGenres.find(genre => genre.id === movieGenreIDs[i]));
-        }
-
         return(
             <div className="home-container">
                 <NavBar/>
                 <button className="t-back" onClick={prevSlide}><ion-icon name="ios-arrow-back"/></button>
                 <button className="t-next" onClick={nextSlide}><ion-icon name="ios-arrow-forward"/></button>
                 <div className="trending-movies">
-                    <Link onClick={stopSliding} to={`/movie/${movies[0].id}`} className="trending-movie current" key={movies[0].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[0].backdrop_path})`}}>
-                        <div className="content">
-                            <p id="trending-tag">Trending</p>
-                            <h1>{movies[0].title}</h1>
-                            <p>{genres[0].name}</p>
-                        </div>
-                    </Link>
-                    <Link onClick={stopSliding} to={`/movie/${movies[1].id}`} className="trending-movie" key={movies[1].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[1].backdrop_path})`}}>
-                        <div className="content">
-                            <p id="trending-tag">Trending</p>
-                            <h1>{movies[1].title}</h1>
-                            <p>{genres[1].name}</p>
-                        </div>
-                    </Link>
-                    <Link onClick={stopSliding} to={`/movie/${movies[2].id}`} className="trending-movie" key={movies[2].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[2].backdrop_path})`}}>
-                        <div className="content">
-                            <p id="trending-tag">Trending</p>
-                            <h1>{movies[2].title}</h1>
-                            <p>{genres[2].name}</p>
-                        </div>
-                    </Link>
-                    <Link onClick={stopSliding} to={`/movie/${movies[3].id}`} className="trending-movie" key={movies[3].id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${movieConfig}w1280${movies[3].backdrop_path})`}}>
-                        <div className="content">
-                            <p id="trending-tag">Trending</p>
-                            <h1>{movies[3].title}</h1>
-                            <p>{genres[3].name}</p>
-                        </div>
-                    </Link>
+                    {trendingMovies.map((movie, i) => {
+                        return (
+                            <Link to={`/movie/${movie.id}`} className={trendingSlides[i] ? "trending-movie current" : "trending-movie"} key={movie.id} style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${config}w1280${movie.backdrop_path})`}}>
+                                <div className="content">
+                                    <p id="trending-tag">Trending</p>
+                                    <h1>{movie.title}</h1>
+                                    <p>{movieGenres.find(genre => genre.id === movie.genre_ids[0]).name}</p>
+                                </div>
+                            </Link>
+                        )
+                    })}
                 </div>
-
-                <HomeMovies stopSliding={stopSliding}/>
             </div>
         )
     }
@@ -165,7 +111,7 @@ const mapStateToProps = state => {
 
         movieGenres: state.movieGenresRuducer.genres,
         isFetchingMovieGenres: state.movieGenresRuducer.isFetching,
-        errorMovieGenres: state.movieGenresRuducer.error
+        errorMovieGenres: state.movieGenresRuducer.error,
     }
 }
 

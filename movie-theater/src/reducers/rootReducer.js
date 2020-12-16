@@ -12,6 +12,7 @@ import { movieReviewReducer } from './movieReducers/movieReviewReducer';
 import { discoverMoviesReducer } from './movieReducers/discoverMoviesReducer';
 import { searchMoviesReducer } from './movieReducers/searchMoviesReducer';
 import { requestTokenReducer } from './accoutReducers/requestTokenReducer';
+import { sessionIdReducer } from './accoutReducers/sessionIdReducer';
 
 export const rootReducer = combineReducers({
     movieConfigReducer,
@@ -25,5 +26,6 @@ export const rootReducer = combineReducers({
     movieReviewReducer,
     discoverMoviesReducer,
     searchMoviesReducer,
-    requestTokenReducer
+    requestTokenReducer,
+    sessionIdReducer,
 });
